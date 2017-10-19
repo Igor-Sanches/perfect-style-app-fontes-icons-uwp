@@ -1,0 +1,768 @@
+﻿<Page
+    x:Class="Perfect_Style.PaginaLetras"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Perfect_Style"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <!--Raiz-->
+    <Grid Margin="0" >
+        <!--Estado Visual-->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="wideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MySplitView.CompactPaneLength" Value="48"/>
+                        <Setter Target="MyGrid1.Margin" Value="48,0,0,0"/>
+                        <Setter Target="MyGrid2.Margin" Value="48,0,0,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="narrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <!--Definições do Grid-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!--Botão do menu + título-->
+        <Grid Margin="0,-24,0,0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{ThemeResource SystemChromeLowColor}">
+            <StackPanel Margin="0,24,0,0" Orientation="Horizontal">
+                <Button Background="Transparent" BorderThickness="0" Width="48" Height="48" Tapped="BotaoMenu" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;"/>
+                    </Button.Content>
+                </Button>
+                <TextBlock x:Uid="textHome1" Text="Perfect Style" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0" Style="{StaticResource BaseTextBlockStyle}"/>
+            </StackPanel>
+        </Grid>
+        <!--Lista de opções-->
+        <Pivot Grid.Row="1">
+            <!--Seção 1-->
+            <PivotItem x:Uid="pivotItemHome" Margin="0" Header="Fontes de Letras">
+                <Grid Margin="0">
+                    <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <StackPanel>
+                            <StackPanel Margin="6,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                <TextBlock x:Uid="clickadd" Text="Escolha uma fonte e reinicie." FontSize="17" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,8"/>
+                                <TextBlock x:Uid="clickview" Text="Clique para aplicar ou Clique e Segure para visualizar." FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,8" TextWrapping="Wrap" Width="Auto"/>
+                            </StackPanel>
+                            <!--Botões 1-->
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="0,0">
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True"  Holding="Button_Holding" Click="BotaoFont1">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A1.ttf#Segoe UI" Text="7Love" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A1.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A1.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A1.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock TextAlignment="Center" FontFamily="/Fontes/Letras/Font0A1.ttf#Segoe UI" Text="7Love" FontSize="20" HorizontalAlignment="Center" Margin="-0.333,0,0,0" Width="78"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont2">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A2.ttf#Segoe UI" Text="Art" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A2.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A2.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A2.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <TextBlock FontFamily="/Fontes/Letras/Font0A2.ttf#Segoe UI" Text="Art" FontSize="20"/>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont3">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A3.ttf#Segoe UI" Text="Digital" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A3.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A3.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A3.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A3.ttf#Segoe UI" Text="Digital" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont4">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A4.ttf#Segoe UI" Text="Bailey" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A4.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A4.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A4.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A4.ttf#Segoe UI" Text="Bailey" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont6">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A6.ttf#Segoe UI" Text="Beahausm Segoe" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A6.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A6.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A6.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A6.ttf#Segoe UI" Text="Beahausm Segoe" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont7">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A7.ttf#Segoe UI" Text="Cake Segoe" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A7.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A7.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A7.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A7.ttf#Segoe UI" Text="Cake Segoe" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont8">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A8.ttf#Segoe UI" Text="Cupid" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A8.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A8.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A8.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A8.ttf#Segoe UI" Text="Cupid" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont10">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A10.ttf#Segoe UI" Text="DIN Alternate" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A10.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A10.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A10.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A10.ttf#Segoe UI" Text="DIN Alternete" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont31">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A31.ttf#Segoe UI" Text="Edgy"  FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A31.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A31.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A31.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A31.ttf#Segoe UI" Text="Edgy" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont32">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A32.ttf#Segoe UI" Text="Harry Potter" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A32.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A32.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A32.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A32.ttf#Segoe UI" Text="Harry Potter" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont34">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A34.ttf#Segoe UI" Text="Helvetica Segoe" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A34.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A34.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A34.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A34.ttf#Segoe UI" Text="Helvetica Segoe" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont35">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A35.ttf#Segoe UI" Text="Iciel Aline" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A35.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A35.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A35.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A35.ttf#Segoe UI" Text="Iciel Aline" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont36">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A36.ttf#Segoe UI" Text="Kids" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A36.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A36.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A36.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A36.ttf#Segoe UI" Text="Kids" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont37">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A37.ttf#Segoe UI" Text="Llly" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A37.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A37.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A37.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A37.ttf#Segoe UI" Text="Lilly" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont38">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A38.ttf#Segoe UI" Text="LobsterTwo" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A36.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A38.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A38.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A38.ttf#Segoe UI" Text="LobsterTwo" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont39">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A39.ttf#Segoe UI" Text="Qarmic Sans" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A39.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A39.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A39.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A39.ttf#Segoe UI" Text="Qarmic Sans" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont40">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A40.ttf#Segoe UI" Text="Rio Segoe" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A40.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A40.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A40.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A40.ttf#Segoe UI" Text="Rio Segoe" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont41">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A41.ttf#Segoe UI" Text="Rix Love Fool" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A41.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A41.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A41.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A41.ttf#Segoe UI" Text="Rix Love Fool" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont12">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A12.ttf#Segoe UI" Text="Buxton Sketch" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A12.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A12.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A12.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A12.ttf#Segoe UI" Text="Buxton Sketch" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont13">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A13.ttf#Segoe UI" Text="LT Oksane" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A13.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A13.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A13.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A13.ttf#Segoe UI" Text="LT Oksana" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont14">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A14.ttf#Segoe UI" Text="MV Boli" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A14.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A14.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A14.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A14.ttf#Segoe UI" Text="MV Boli" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont15">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A15.ttf#Segoe UI" Text="Monotype Corsiva" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A15.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A15.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A15.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A15.ttf#Segoe UI" Text="Monotype" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont16">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A16.ttf#Segoe UI" Text="SketchFlow Print" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A16.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A16.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A16.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A16.ttf#Segoe UI" Text="SketchFlow" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont17">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A17.ttf#Segoe UI" Text="Ubuntu Light" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A17.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A17.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A17.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A17.ttf#Segoe UI" Text="Ubuntu Light" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont18">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A18.ttf#Segoe UI" Text="San Francisco" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A18.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A18.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A18.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A18.ttf#Segoe UI" Text="San Francisco" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont19">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A19.ttf#Segoe UI" Text="Papyrus" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A19.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A19.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A19.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A19.ttf#Segoe UI" Text="Papyrus" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont20">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A20.ttf#Segoe UI" Text="Tempus Sans ITC" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A20.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A20.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A20.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A20.ttf#Segoe UI" Text="Tempus Sans ITC" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont21">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A21.ttf#Segoe UI" Text="Neo Sans LTD" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A21.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A21.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A21.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A21.ttf#Segoe UI" Text="Neo Sans ITD" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont22">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A22.ttf#Segoe UI" Text="Mad's Scrawl" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A22.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A22.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A22.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A22.ttf#Segoe UI" Text="Mad's Scrawl" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont23">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A23.ttf#Segoe UI" Text="Xoxoxa" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A23.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A23.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A23.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A23.ttf#Segoe UI" Text="Xoxoxa" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont24">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A24.ttf#Segoe UI" Text="Valentin" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A24.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A24.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A24.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A24.ttf#Segoe UI" Text="Valentin" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont25">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A25.ttf#Segoe UI" Text="Choco Cooky" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A25.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A25.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A25.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A25.ttf#Segoe UI" Text="Choco Cooky" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont26">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A26.ttf#Segoe UI" Text="Vera" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A26.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A26.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font026.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A26.ttf#Segoe UI" Text="Vera" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont27">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A27.ttf#Segoe UI" Text="Calibri" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A27.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A27.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A27.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A27.ttf#Segoe UI" Text="Calibri" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont28">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A28.ttf#Segoe UI" Text="Catholic School" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A28.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A28.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A28.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A28.ttf#Segoe UI" Text="Catholic School" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont29">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A29.ttf#Segoe UI" Text="Oswald Light" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A29.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A29.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A29.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A29.ttf#Segoe UI" Text="Oswald Light" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoFont30">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock FontFamily="/Fontes/Letras/Font0A30.ttf#Segoe UI" Text="Willow" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" FontFamily="/Fontes/Letras/Font0A30.ttf#Segoe UI" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <TextBlock x:Uid="TextFlayout1" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A30.ttf#Segoe UI" Text="Posso muitas vezes parecer forte... Mais em mim também chove."/>
+                                                    <TextBlock x:Uid="TextFlayout2" Margin="0,12,0,0" TextAlignment="Justify" TextWrapping="Wrap" FontFamily="/Fontes/Letras/Font0A30.ttf#Segoe UI" Text="Não verci todas as vezes que lutei, mais perdi todas as vezes que deixei de lutar!"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <Button.Content>
+                                        <TextBlock FontFamily="/Fontes/Letras/Font0A30.ttf#Segoe UI" Text="Willow" FontSize="20"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="42" Margin="0,0,0,4" IsHoldingEnabled="True" Background="Transparent" Foreground="Transparent">
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <CommandBar HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Margin="0" RenderTransformOrigin="0.5,0.5">
+                        <AppBarButton Click="BotaoRestaurar" Width="Auto">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Margin="12,0,0,0" Symbol="Refresh"/>
+                                <TextBlock x:Uid="Refresh" Margin="12,0" Text="Restaurar"/>
+                            </StackPanel>
+                        </AppBarButton>
+                    </CommandBar>
+                </Grid>
+            </PivotItem>
+        </Pivot>
+        <!--Painel lateral-->
+        <SplitView Name="MySplitView" DisplayMode="CompactOverlay" OpenPaneLength="256" CompactPaneLength="0" Canvas.ZIndex="2" Grid.Row="1">
+            <SplitView.Pane>
+                <Grid HorizontalAlignment="Left" Height="574" VerticalAlignment="Top" Margin="0,0,0,-46">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ListView HorizontalAlignment="Left" ScrollViewer.VerticalScrollMode="Auto" Width="256" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Height="386" VerticalAlignment="Bottom" RenderTransformOrigin="0.464,0.546" Margin="0,0,0,188">
+                        <ListViewItem Tapped="BotaoInicio" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE80F;"/>
+                                <TextBlock x:Uid="Iniciar" Text="Inicio" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="BotaoFontA" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE185;"/>
+                                <TextBlock x:Uid="Letras" Text="Fontes Letras" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="BotaoFontB" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE1E4;"/>
+                                <TextBlock x:Uid="IconEmoji" Text="Fontes Ícones e Emoji" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="BotaoPersonalizar" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE771;"/>
+                                <TextBlock x:Uid="Personalizar" Text="Personalização" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="BotaoAjuda" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE11B;"/>
+                                <TextBlock x:Uid="Ajuda" Text="Ajuda" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="BotaoSobre" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Margin="0" Width="256" Height="48" Orientation="Horizontal">
+                                <StackPanel Margin="0" Orientation="Horizontal" >
+                                    <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE946;"/>
+                                    <TextBlock x:Uid="Sobre" Text="Sobre" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="Feedback" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" FontSize="16" Glyph="&#xE128;"/>
+                                <TextBlock x:Uid="Blog" Text="Blog Oficial"  Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="Atualizacao" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="true">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE052;"/>
+                                <TextBlock x:Uid="Update" Text="Verificar Atualizações" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                </Grid>
+            </SplitView.Pane>
+        </SplitView>
+    </Grid>
+</Page>

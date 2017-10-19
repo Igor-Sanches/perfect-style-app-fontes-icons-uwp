@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{1CB5F849-51AF-4610-A51B-A1E994A30131}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Perfect_Style</RootNamespace>
+    <AssemblyName>Perfect Style</AssemblyName>
+    <DefaultLanguage>pt-BR</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <PackageCertificateKeyFile>Perfect Style_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>arm</AppxBundlePlatforms>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Assets\IconAPP.png" />
+    <Content Include="Assets\imageToast.png" />
+    <Content Include="Fontes\Emoji\FontEmoji0A1.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0A1.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0A2.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0A3.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0A4.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0B1.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0B2.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0B3.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0B4.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0C1.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0C2.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0C3.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0C4.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0D1.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0D2.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0D3.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0D4.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0E1.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0E2.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0E3.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0E4.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0F1.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0F2.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0F3.ttf" />
+    <Content Include="Fontes\Icones\FontIcon0F4.ttf" />
+    <Content Include="Fontes\Letras\Font0A1.ttf" />
+    <Content Include="Fontes\Letras\Font0A10.ttf" />
+    <Content Include="Fontes\Letras\Font0A12.ttf" />
+    <Content Include="Fontes\Letras\Font0A13.ttf" />
+    <Content Include="Fontes\Letras\Font0A14.ttf" />
+    <Content Include="Fontes\Letras\Font0A15.ttf" />
+    <Content Include="Fontes\Letras\Font0A16.ttf" />
+    <Content Include="Fontes\Letras\Font0A17.ttf" />
+    <Content Include="Fontes\Letras\Font0A18.ttf" />
+    <Content Include="Fontes\Letras\Font0A19.ttf" />
+    <Content Include="Fontes\Letras\Font0A2.ttf" />
+    <Content Include="Fontes\Letras\Font0A20.ttf" />
+    <Content Include="Fontes\Letras\Font0A21.ttf" />
+    <Content Include="Fontes\Letras\Font0A22.ttf" />
+    <Content Include="Fontes\Letras\Font0A23.ttf" />
+    <Content Include="Fontes\Letras\Font0A24.ttf" />
+    <Content Include="Fontes\Letras\Font0A25.ttf" />
+    <Content Include="Fontes\Letras\Font0A26.ttf" />
+    <Content Include="Fontes\Letras\Font0A27.ttf" />
+    <Content Include="Fontes\Letras\Font0A28.ttf" />
+    <Content Include="Fontes\Letras\Font0A29.ttf" />
+    <Content Include="Fontes\Letras\Font0A3.ttf" />
+    <Content Include="Fontes\Letras\Font0A30.ttf" />
+    <Content Include="Fontes\Letras\Font0A31.ttf" />
+    <Content Include="Fontes\Letras\Font0A32.ttf" />
+    <Content Include="Fontes\Letras\Font0A33.ttf" />
+    <Content Include="Fontes\Letras\Font0A34.ttf" />
+    <Content Include="Fontes\Letras\Font0A35.ttf" />
+    <Content Include="Fontes\Letras\Font0A36.ttf" />
+    <Content Include="Fontes\Letras\Font0A37.ttf" />
+    <Content Include="Fontes\Letras\Font0A38.ttf" />
+    <Content Include="Fontes\Letras\Font0A39.ttf" />
+    <Content Include="Fontes\Letras\Font0A4.ttf" />
+    <Content Include="Fontes\Letras\Font0A40.ttf" />
+    <Content Include="Fontes\Letras\Font0A41.ttf" />
+    <Content Include="Fontes\Letras\Font0A5.ttf" />
+    <Content Include="Fontes\Letras\Font0A6.ttf" />
+    <Content Include="Fontes\Letras\Font0A7.ttf" />
+    <Content Include="Fontes\Letras\Font0A8.ttf" />
+    <Content Include="Fontes\Letras\Font0A9.ttf" />
+    <Content Include="Fontes\Letras\Font0AB34.ttf" />
+    <Content Include="Fontes\Letras\Font0B1.ttf" />
+    <Content Include="Fontes\Letras\Font0B10.ttf" />
+    <Content Include="Fontes\Letras\Font0B11.ttf" />
+    <Content Include="Fontes\Letras\Font0B12.ttf" />
+    <Content Include="Fontes\Letras\Font0B13.ttf" />
+    <Content Include="Fontes\Letras\Font0B14.ttf" />
+    <Content Include="Fontes\Letras\Font0B15.ttf" />
+    <Content Include="Fontes\Letras\Font0B16.ttf" />
+    <Content Include="Fontes\Letras\Font0B17.ttf" />
+    <Content Include="Fontes\Letras\Font0B18.ttf" />
+    <Content Include="Fontes\Letras\Font0B19.ttf" />
+    <Content Include="Fontes\Letras\Font0B2.ttf" />
+    <Content Include="Fontes\Letras\Font0B20.ttf" />
+    <Content Include="Fontes\Letras\Font0B21.ttf" />
+    <Content Include="Fontes\Letras\Font0B22.ttf" />
+    <Content Include="Fontes\Letras\Font0B23.ttf" />
+    <Content Include="Fontes\Letras\Font0B24.ttf" />
+    <Content Include="Fontes\Letras\Font0B25.ttf" />
+    <Content Include="Fontes\Letras\Font0B26.ttf" />
+    <Content Include="Fontes\Letras\Font0B27.ttf" />
+    <Content Include="Fontes\Letras\Font0B28.ttf" />
+    <Content Include="Fontes\Letras\Font0B29.ttf" />
+    <Content Include="Fontes\Letras\Font0B3.ttf" />
+    <Content Include="Fontes\Letras\Font0B30.ttf" />
+    <Content Include="Fontes\Letras\Font0B31.ttf" />
+    <Content Include="Fontes\Letras\Font0B32.ttf" />
+    <Content Include="Fontes\Letras\Font0B33.ttf" />
+    <Content Include="Fontes\Letras\Font0B34.ttf" />
+    <Content Include="Fontes\Letras\Font0B35.ttf" />
+    <Content Include="Fontes\Letras\Font0B36.ttf" />
+    <Content Include="Fontes\Letras\Font0B37.ttf" />
+    <Content Include="Fontes\Letras\Font0B38.ttf" />
+    <Content Include="Fontes\Letras\Font0B39.ttf" />
+    <Content Include="Fontes\Letras\Font0B4.ttf" />
+    <Content Include="Fontes\Letras\Font0B40.ttf" />
+    <Content Include="Fontes\Letras\Font0B41.ttf" />
+    <Content Include="Fontes\Letras\Font0B5.ttf" />
+    <Content Include="Fontes\Letras\Font0B6.ttf" />
+    <Content Include="Fontes\Letras\Font0B7.ttf" />
+    <Content Include="Fontes\Letras\Font0B8.ttf" />
+    <Content Include="Fontes\Letras\Font0B9.ttf" />
+    <Content Include="Fontes\Letras\Font0C1.ttf" />
+    <Content Include="Fontes\Letras\Font0C10.ttf" />
+    <Content Include="Fontes\Letras\Font0C11.ttf" />
+    <Content Include="Fontes\Letras\Font0C12.ttf" />
+    <Content Include="Fontes\Letras\Font0C13.ttf" />
+    <Content Include="Fontes\Letras\Font0C14.ttf" />
+    <Content Include="Fontes\Letras\Font0C15.ttf" />
+    <Content Include="Fontes\Letras\Font0C16.ttf" />
+    <Content Include="Fontes\Letras\Font0C17.ttf" />
+    <Content Include="Fontes\Letras\Font0C18.ttf" />
+    <Content Include="Fontes\Letras\Font0C19.ttf" />
+    <Content Include="Fontes\Letras\Font0C2.ttf" />
+    <Content Include="Fontes\Letras\Font0C20.ttf" />
+    <Content Include="Fontes\Letras\Font0C21.ttf" />
+    <Content Include="Fontes\Letras\Font0C22.ttf" />
+    <Content Include="Fontes\Letras\Font0C23.ttf" />
+    <Content Include="Fontes\Letras\Font0C24.ttf" />
+    <Content Include="Fontes\Letras\Font0C25.ttf" />
+    <Content Include="Fontes\Letras\Font0C26.ttf" />
+    <Content Include="Fontes\Letras\Font0C27.ttf" />
+    <Content Include="Fontes\Letras\Font0C28.ttf" />
+    <Content Include="Fontes\Letras\Font0C29.ttf" />
+    <Content Include="Fontes\Letras\Font0C3.ttf" />
+    <Content Include="Fontes\Letras\Font0C30.ttf" />
+    <Content Include="Fontes\Letras\Font0C31.ttf" />
+    <Content Include="Fontes\Letras\Font0C32.ttf" />
+    <Content Include="Fontes\Letras\Font0C33.ttf" />
+    <Content Include="Fontes\Letras\Font0C34.ttf" />
+    <Content Include="Fontes\Letras\Font0C35.ttf" />
+    <Content Include="Fontes\Letras\Font0C36.ttf" />
+    <Content Include="Fontes\Letras\Font0C37.ttf" />
+    <Content Include="Fontes\Letras\Font0C38.ttf" />
+    <Content Include="Fontes\Letras\Font0C39.ttf" />
+    <Content Include="Fontes\Letras\Font0C4.ttf" />
+    <Content Include="Fontes\Letras\Font0C40.ttf" />
+    <Content Include="Fontes\Letras\Font0C41.ttf" />
+    <Content Include="Fontes\Letras\Font0C5.ttf" />
+    <Content Include="Fontes\Letras\Font0C6.ttf" />
+    <Content Include="Fontes\Letras\Font0C7.ttf" />
+    <Content Include="Fontes\Letras\Font0C8.ttf" />
+    <Content Include="Fontes\Letras\Font0C9.ttf" />
+    <Content Include="Fontes\Letras\Font0D1.ttf" />
+    <Content Include="Fontes\Letras\Font0D10.ttf" />
+    <Content Include="Fontes\Letras\Font0D11.ttf" />
+    <Content Include="Fontes\Letras\Font0D12.ttf" />
+    <Content Include="Fontes\Letras\Font0D13.ttf" />
+    <Content Include="Fontes\Letras\Font0D14.ttf" />
+    <Content Include="Fontes\Letras\Font0D15.ttf" />
+    <Content Include="Fontes\Letras\Font0D16.ttf" />
+    <Content Include="Fontes\Letras\Font0D17.ttf" />
+    <Content Include="Fontes\Letras\Font0D18.ttf" />
+    <Content Include="Fontes\Letras\Font0D19.ttf" />
+    <Content Include="Fontes\Letras\Font0D2.ttf" />
+    <Content Include="Fontes\Letras\Font0D20.ttf" />
+    <Content Include="Fontes\Letras\Font0D21.ttf" />
+    <Content Include="Fontes\Letras\Font0D22.ttf" />
+    <Content Include="Fontes\Letras\Font0D23.ttf" />
+    <Content Include="Fontes\Letras\Font0D24.ttf" />
+    <Content Include="Fontes\Letras\Font0D25.ttf" />
+    <Content Include="Fontes\Letras\Font0D26.ttf" />
+    <Content Include="Fontes\Letras\Font0D27.ttf" />
+    <Content Include="Fontes\Letras\Font0D28.ttf" />
+    <Content Include="Fontes\Letras\Font0D29.ttf" />
+    <Content Include="Fontes\Letras\Font0D3.ttf" />
+    <Content Include="Fontes\Letras\Font0D30.ttf" />
+    <Content Include="Fontes\Letras\Font0D31.ttf" />
+    <Content Include="Fontes\Letras\Font0D32.ttf" />
+    <Content Include="Fontes\Letras\Font0D33.ttf" />
+    <Content Include="Fontes\Letras\Font0D34.ttf" />
+    <Content Include="Fontes\Letras\Font0D35.ttf" />
+    <Content Include="Fontes\Letras\Font0D36.ttf" />
+    <Content Include="Fontes\Letras\Font0D37.ttf" />
+    <Content Include="Fontes\Letras\Font0D38.ttf" />
+    <Content Include="Fontes\Letras\Font0D39.ttf" />
+    <Content Include="Fontes\Letras\Font0D4.ttf" />
+    <Content Include="Fontes\Letras\Font0D40.ttf" />
+    <Content Include="Fontes\Letras\Font0D41.ttf" />
+    <Content Include="Fontes\Letras\Font0D5.ttf" />
+    <Content Include="Fontes\Letras\Font0D6.ttf" />
+    <Content Include="Fontes\Letras\Font0D7.ttf" />
+    <Content Include="Fontes\Letras\Font0D8.ttf" />
+    <Content Include="Fontes\Letras\Font0D9.ttf" />
+    <Content Include="Fontes\Letras\Font0E1.ttf" />
+    <Content Include="Fontes\Letras\Font0E10.ttf" />
+    <Content Include="Fontes\Letras\Font0E11.ttf" />
+    <Content Include="Fontes\Letras\Font0E12.ttf" />
+    <Content Include="Fontes\Letras\Font0E13.ttf" />
+    <Content Include="Fontes\Letras\Font0E14.ttf" />
+    <Content Include="Fontes\Letras\Font0E15.ttf" />
+    <Content Include="Fontes\Letras\Font0E16.ttf" />
+    <Content Include="Fontes\Letras\Font0E17.ttf" />
+    <Content Include="Fontes\Letras\Font0E18.ttf" />
+    <Content Include="Fontes\Letras\Font0E19.ttf" />
+    <Content Include="Fontes\Letras\Font0E2.ttf" />
+    <Content Include="Fontes\Letras\Font0E20.ttf" />
+    <Content Include="Fontes\Letras\Font0E21.ttf" />
+    <Content Include="Fontes\Letras\Font0E22.ttf" />
+    <Content Include="Fontes\Letras\Font0E23.ttf" />
+    <Content Include="Fontes\Letras\Font0E24.ttf" />
+    <Content Include="Fontes\Letras\Font0E25.ttf" />
+    <Content Include="Fontes\Letras\Font0E26.ttf" />
+    <Content Include="Fontes\Letras\Font0E27.ttf" />
+    <Content Include="Fontes\Letras\Font0E28.ttf" />
+    <Content Include="Fontes\Letras\Font0E29.ttf" />
+    <Content Include="Fontes\Letras\Font0E3.ttf" />
+    <Content Include="Fontes\Letras\Font0E30.ttf" />
+    <Content Include="Fontes\Letras\Font0E31.ttf" />
+    <Content Include="Fontes\Letras\Font0E32.ttf" />
+    <Content Include="Fontes\Letras\Font0E33.ttf" />
+    <Content Include="Fontes\Letras\Font0E34.ttf" />
+    <Content Include="Fontes\Letras\Font0E35.ttf" />
+    <Content Include="Fontes\Letras\Font0E36.ttf" />
+    <Content Include="Fontes\Letras\Font0E37.ttf" />
+    <Content Include="Fontes\Letras\Font0E38.ttf" />
+    <Content Include="Fontes\Letras\Font0E39.ttf" />
+    <Content Include="Fontes\Letras\Font0E4.ttf" />
+    <Content Include="Fontes\Letras\Font0E40.ttf" />
+    <Content Include="Fontes\Letras\Font0E41.ttf" />
+    <Content Include="Fontes\Letras\Font0E5.ttf" />
+    <Content Include="Fontes\Letras\Font0E6.ttf" />
+    <Content Include="Fontes\Letras\Font0E7.ttf" />
+    <Content Include="Fontes\Letras\Font0E8.ttf" />
+    <Content Include="Fontes\Letras\Font0E9.ttf" />
+    <Content Include="Fontes\Letras\Font0F1.ttf" />
+    <Content Include="Fontes\Letras\Font0F10.ttf" />
+    <Content Include="Fontes\Letras\Font0F11.ttf" />
+    <Content Include="Fontes\Letras\Font0F12.ttf" />
+    <Content Include="Fontes\Letras\Font0F13.ttf" />
+    <Content Include="Fontes\Letras\Font0F14.ttf" />
+    <Content Include="Fontes\Letras\Font0F15.ttf" />
+    <Content Include="Fontes\Letras\Font0F16.ttf" />
+    <Content Include="Fontes\Letras\Font0F17.ttf" />
+    <Content Include="Fontes\Letras\Font0F18.ttf" />
+    <Content Include="Fontes\Letras\Font0F19.ttf" />
+    <Content Include="Fontes\Letras\Font0F2.ttf" />
+    <Content Include="Fontes\Letras\Font0F20.ttf" />
+    <Content Include="Fontes\Letras\Font0F21.ttf" />
+    <Content Include="Fontes\Letras\Font0F22.ttf" />
+    <Content Include="Fontes\Letras\Font0F23.ttf" />
+    <Content Include="Fontes\Letras\Font0F24.ttf" />
+    <Content Include="Fontes\Letras\Font0F25.ttf" />
+    <Content Include="Fontes\Letras\Font0F26.ttf" />
+    <Content Include="Fontes\Letras\Font0F27.ttf" />
+    <Content Include="Fontes\Letras\Font0F28.ttf" />
+    <Content Include="Fontes\Letras\Font0F29.ttf" />
+    <Content Include="Fontes\Letras\Font0F3.ttf" />
+    <Content Include="Fontes\Letras\Font0F30.ttf" />
+    <Content Include="Fontes\Letras\Font0F31.ttf" />
+    <Content Include="Fontes\Letras\Font0F32.ttf" />
+    <Content Include="Fontes\Letras\Font0F33.ttf" />
+    <Content Include="Fontes\Letras\Font0F34.ttf" />
+    <Content Include="Fontes\Letras\Font0F35.ttf" />
+    <Content Include="Fontes\Letras\Font0F36.ttf" />
+    <Content Include="Fontes\Letras\Font0F37.ttf" />
+    <Content Include="Fontes\Letras\Font0F38.ttf" />
+    <Content Include="Fontes\Letras\Font0F39.ttf" />
+    <Content Include="Fontes\Letras\Font0F4.ttf" />
+    <Content Include="Fontes\Letras\Font0F40.ttf" />
+    <Content Include="Fontes\Letras\Font0F41.ttf" />
+    <Content Include="Fontes\Letras\Font0F5.ttf" />
+    <Content Include="Fontes\Letras\Font0F6.ttf" />
+    <Content Include="Fontes\Letras\Font0F7.ttf" />
+    <Content Include="Fontes\Letras\Font0F8.ttf" />
+    <Content Include="Fontes\Letras\Font0F9.ttf" />
+    <None Include="project.json" />
+    <PRIResource Include="Strings\pt-BR\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaginaAjuda.xaml.cs">
+      <DependentUpon>PaginaAjuda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaginaIconEemoji.xaml.cs">
+      <DependentUpon>PaginaIconEemoji.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaginaLetras.xaml.cs">
+      <DependentUpon>PaginaLetras.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaginaPesonalizacao.xaml.cs">
+      <DependentUpon>PaginaPesonalizacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaginaSobre.xaml.cs">
+      <DependentUpon>PaginaSobre.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PersonalizationHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RebootPage.xaml.cs">
+      <DependentUpon>RebootPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="Perfect Style_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Fontes\Emoji\FontEmoji0B1.ttf" />
+    <None Include="Fontes\Emoji\FontEmoji0C1.ttf" />
+    <None Include="Fontes\Emoji\FontEmoji0D1.ttf" />
+    <None Include="Fontes\Emoji\FontEmoji0E1.ttf" />
+    <None Include="Fontes\Emoji\FontEmoji0F1.ttf" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PaginaAjuda.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PaginaIconEemoji.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PaginaLetras.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PaginaPesonalizacao.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PaginaSobre.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebootPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\..\Videos\FlightingClientDll.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ndtklib">
+      <HintPath>..\..\..\..\Documents\code source\ndtklib.winmd</HintPath>
+    </Reference>
+    <Reference Include="Nokia.SilentInstaller.Runtime">
+      <HintPath>..\..\..\..\Downloads\Style\obj\ARM\Debug\MDIL\Nokia.SilentInstaller.Runtime.winmd</HintPath>
+    </Reference>
+    <Reference Include="OEMSharedFolderAccessLib">
+      <HintPath>..\..\..\..\Documents\code source\WPTweaker-master\WPTweaker-master\WPTweaker\OEMSharedFolderAccessLib.winmd</HintPath>
+    </Reference>
+    <Reference Include="RPCComponent">
+      <HintPath>..\..\..\..\Documents\code source\WPTweaker-master\WPTweaker-master\WPTweaker\RPCComponent.winmd</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

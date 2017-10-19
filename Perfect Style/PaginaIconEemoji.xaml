@@ -1,0 +1,225 @@
+﻿<Page
+    x:Class="Perfect_Style.PaginaIconEemoji"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using.Perfect_Style"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <!--Raiz-->
+    <Grid Margin="0,0,0,10" >
+        <!--Estado Visual-->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="wideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MySplitView.CompactPaneLength" Value="48"/>
+                        <Setter Target="MyGrid1.Margin" Value="48,0,0,0"/>
+                        <Setter Target="MyGrid2.Margin" Value="48,0,0,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="narrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <!--Definições do Grid-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!--Botão do menu + título-->
+        <Grid Margin="0,-24,0,0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{ThemeResource SystemChromeLowColor}">
+            <StackPanel Margin="0,24,0,0" Orientation="Horizontal">
+                <Button Background="Transparent" BorderThickness="0" Width="48" Height="48" Tapped="BotaoMenu" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;"/>
+                    </Button.Content>
+                </Button>
+                <TextBlock x:Uid="textHome1" Text="Perfect Style" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0" Style="{StaticResource BaseTextBlockStyle}"/>
+            </StackPanel>
+        </Grid>
+        <!--Lista de opções-->
+        <Pivot Grid.Row="1">
+            <!--Seção 2-->
+            <PivotItem x:Uid="pivotItemHome2" Margin="0" Header="Fontes de Icones e Emoji">
+                <Grid Margin="0">
+                    <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <StackPanel>
+                            <StackPanel Margin="6,0,12,0" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                <TextBlock x:Uid="clickadd" Text="Escolha uma fonte e reinicie." FontSize="17" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,8"/>
+                                <TextBlock x:Uid="clickview" Text="Clique para aplicar ou Clique e Segure para visualizar." FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,8" TextWrapping="Wrap" Width="Auto"/>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Top" Margin="0,0,4,0" Height="521">
+                                <TextBlock x:Uid="areaicones" Text="Área Ícones" HorizontalAlignment="Left" FontSize="20" Margin="4,6,0,6"/>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="ButaoIcon1">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock x:Uid="iconandroid" Text="Android LolliPop Icon" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A1.ttf#Segoe MDL2 Assets" Glyph="&#xEC3F; &#xEC39; &#xE704; &#xEBA7; &#xEC42; &#xE702; &#xE703; &#xE705; &#xE115; &#xE708; &#xE709;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A1.ttf#Segoe MDL2 Assets" Glyph="&#xE770; &#xE771; &#xE772; &#xE773; &#xE774; &#xE149; &#xE775; &#xE776; &#xE777; &#xE778; &#xE779;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A1.ttf#Segoe MDL2 Assets" Glyph="&#xE720; &#xE721; &#xE723; &#xE724; &#xE735; &#xE726; &#xE727; &#xE728; &#xE729; &#xE730; &#xE72D;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A1.ttf#Segoe MDL2 Assets" Glyph="&#xE734; &#xE735; &#xE124; &#xE166; &#xE742; &#xE141; &#xE749; &#xE750; &#xE751; &#xE752; &#xE753;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A1.ttf#Segoe MDL2 Assets" Glyph="&#xE754; &#xE755; &#xE756; &#xE759; &#xE760; &#xE761; &#xE762; &#xE763; &#xE765; &#xE778; &#xE788;"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <TextBlock x:Uid="iconandroid" Text="Ícone Android LolliPop" TextAlignment="Center" FontSize="20" Width="216"/>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoIcon3">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock x:Uid="iconbc" Text="Batéria Circular Icon" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A3.ttf#Segoe MDL2 Assets" Glyph="&#xEC3F;   &#xEC39; &#xE704; &#xEBA7; &#xEC42; &#xE702; &#xE703; &#xE705; &#xE115; &#xE708; &#xE709;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A3.ttf#Segoe MDL2 Assets" Glyph="&#xE770; &#xE771; &#xE772; &#xE773; &#xE774; &#xE149; &#xE775; &#xE776; &#xE777; &#xE778; &#xE779;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A3.ttf#Segoe MDL2 Assets" Glyph="&#xE720; &#xE721; &#xE723; &#xE724; &#xE735; &#xE726; &#xE727; &#xE728; &#xE729; &#xE730; &#xE72D;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A3.ttf#Segoe MDL2 Assets" Glyph="&#xE734; &#xE735; &#xE124; &#xE166; &#xE742; &#xE141; &#xE749; &#xE750; &#xE751; &#xE752; &#xE753;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A3.ttf#Segoe MDL2 Assets" Glyph="&#xE754; &#xE755; &#xE756; &#xE759; &#xE760; &#xE761; &#xE762; &#xE763; &#xE765; &#xE778; &#xE788;"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <TextBlock x:Uid="iconbc" Text="Ícone Batéria Circular" TextAlignment="Center" FontSize="20"/>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoIcon4">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock x:Uid="iconcolor" Text="Color Icon" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A4.ttf#Segoe MDL2 Assets" Glyph="&#xEC3F; &#xEC39; &#xE704; &#xEBA7; &#xEC42; &#xE702; &#xE703; &#xE705; &#xE115; &#xE708; &#xE709;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A4.ttf#Segoe MDL2 Assets" Glyph="&#xE770; &#xE771; &#xE772; &#xE773; &#xE774; &#xE149; &#xE775; &#xE776; &#xE777; &#xE778; &#xE779;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A4.ttf#Segoe MDL2 Assets" Glyph="&#xE720; &#xE721; &#xE723; &#xE724; &#xE735; &#xE726; &#xE727; &#xE728; &#xE729; &#xE730; &#xE72D;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A4.ttf#Segoe MDL2 Assets" Glyph="&#xE734; &#xE735; &#xE124; &#xE166; &#xE742; &#xE141; &#xE749; &#xE750; &#xE751; &#xE752; &#xE753;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A4.ttf#Segoe MDL2 Assets" Glyph="&#xE754; &#xE755; &#xE756; &#xE759; &#xE760; &#xE761; &#xE762; &#xE763; &#xE765; &#xE778; &#xE788;"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <TextBlock x:Uid="iconcolor" Text="Ícone Color" TextAlignment="Center" FontSize="20" Width="174"/>
+                                </Button>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="BotaoIcon2">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <Grid Height="Auto" Width="398">
+                                                <StackPanel Margin="12,12" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                                    <TextBlock x:Uid="iconios" Text="IOS Icon" FontSize="25"/>
+                                                    <TextBlock x:Uid="view" Text="Visualização" FontSize="18" Margin="0,12,0,0"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A2.ttf#Segoe MDL2 Assets" Glyph="&#xEC3F;   &#xEC39; &#xE704; &#xEBA7; &#xEC42; &#xE702; &#xE703; &#xE705; &#xE115; &#xE708; &#xE709;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A2.ttf#Segoe MDL2 Assets" Glyph="&#xE770; &#xE771; &#xE772; &#xE773; &#xE774; &#xE149; &#xE775; &#xE776; &#xE777; &#xE778; &#xE779;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A2.ttf#Segoe MDL2 Assets" Glyph="&#xE720; &#xE721; &#xE723; &#xE724; &#xE735; &#xE726; &#xE727; &#xE728; &#xE729; &#xE730; &#xE72D;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A2.ttf#Segoe MDL2 Assets" Glyph="&#xE734; &#xE735; &#xE124; &#xE166; &#xE742; &#xE141; &#xE749; &#xE750; &#xE751; &#xE752; &#xE753;"/>
+                                                    <FontIcon x:Uid="TextFlayout1" Margin="0,12,0,0" FontFamily="/Fontes/Icones/FontIcon0A2.ttf#Segoe MDL2 Assets" Glyph="&#xE754; &#xE755; &#xE756; &#xE759; &#xE760; &#xE761; &#xE762; &#xE763; &#xE765; &#xE778; &#xE788;"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                    <TextBlock x:Uid="iconios" Text="Ícone IOS" TextAlignment="Center" FontSize="20" Margin="0"/>
+                                </Button>
+                                <CommandBar>
+                                    <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Click="RestaurarIcon">
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Margin="12,0,0,0" Symbol="Refresh"/>
+                                            <TextBlock x:Uid="Refresh" Margin="12,0" Text="Restaurar"/>
+                                        </StackPanel>
+                                    </AppBarButton>
+                                </CommandBar>
+                                <TextBlock x:Uid="areaemoji" Text="Área Emoji" HorizontalAlignment="Left" FontSize="20" Margin="4,6,0,6"/>
+                                <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Click="BotaoEmoji1">
+                                    <TextBlock x:Uid="textEmoji1" Text="Emoji Preto e Brnco" FontSize="20"/>
+                                </Button>
+                                <CommandBar>
+                                    <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Height="48" Margin="0,0,0,4" IsHoldingEnabled="True" Holding="Button_Holding" Click="RestaurarEmoji">
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Margin="12,0,0,0" Symbol="Refresh"/>
+                                            <TextBlock x:Uid="Refresh" Margin="12,0" Text="Restaurar"/>
+                                        </StackPanel>
+                                    </AppBarButton>
+                                </CommandBar>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </PivotItem>
+        </Pivot>
+        <!--Painel lateral-->
+        <!--Painel lateral-->
+        <SplitView Name="MySplitView" DisplayMode="CompactOverlay" OpenPaneLength="256" CompactPaneLength="0" Canvas.ZIndex="2" Grid.Row="1">
+            <SplitView.Pane>
+                <Grid HorizontalAlignment="Left" Height="574" VerticalAlignment="Top" Margin="0,0,0,-46">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ListView HorizontalAlignment="Left" ScrollViewer.VerticalScrollMode="Auto" Width="256" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Height="386" VerticalAlignment="Bottom" RenderTransformOrigin="0.464,0.546" Margin="0,0,0,188">
+                        <ListViewItem Tapped="BotaoInicio" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE80F;"/>
+                                <TextBlock x:Uid="Iniciar" Text="Inicio" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="BotaoFontA" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE185;"/>
+                                <TextBlock x:Uid="Letras" Text="Fontes Letras" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="BotaoFontB" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE1E4;"/>
+                                <TextBlock x:Uid="IconEmoji" Text="Fontes Ícones e Emoji" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="BotaoPersonalizar" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE771;"/>
+                                <TextBlock x:Uid="Personalizar" Text="Personalização" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="BotaoAjuda" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE11B;"/>
+                                <TextBlock x:Uid="Ajuda" Text="Ajuda" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="BotaoSobre" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Margin="0" Width="256" Height="48" Orientation="Horizontal">
+                                <StackPanel Margin="0" Orientation="Horizontal" >
+                                    <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE946;"/>
+                                    <TextBlock x:Uid="Sobre" Text="Sobre" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="Feedback" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" FontSize="16" Glyph="&#xE128;"/>
+                                <TextBlock x:Uid="Blog" Text="Blog Oficial"  Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Tapped="Atualizacao" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="true">
+                            <StackPanel Orientation="Horizontal" >
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE052;"/>
+                                <TextBlock x:Uid="Update" Text="Verificar Atualizações" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                </Grid>
+            </SplitView.Pane>
+        </SplitView>
+    </Grid>
+</Page>
