@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Perfect_Style</RootNamespace>
     <AssemblyName>Perfect Style</AssemblyName>
-    <DefaultLanguage>pt-BR</DefaultLanguage>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.10240.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
@@ -94,8 +94,59 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="Assets\IconAPP.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\AppIcon\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\Grande\LargeTile.scale-100.png" />
+    <Content Include="Assets\Grande\LargeTile.scale-125.png" />
+    <Content Include="Assets\Grande\LargeTile.scale-150.png" />
+    <Content Include="Assets\Grande\LargeTile.scale-200.png" />
+    <Content Include="Assets\Grande\LargeTile.scale-400.png" />
+    <Content Include="Assets\hallowen %282%29.jpg" />
+    <Content Include="Assets\hallowen.jpg" />
+    <Content Include="Assets\hallowen2.jpg" />
     <Content Include="Assets\imageToast.png" />
+    <Content Include="Assets\Largo\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Largo\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\Largo\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\Largo\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Largo\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Medio\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Medio\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\Medio\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\Medio\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Medio\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\n1.jpg" />
+    <Content Include="Assets\n2.jpg" />
+    <Content Include="Assets\n3.jpg" />
+    <Content Include="Assets\n4.jpg" />
+    <Content Include="Assets\Pequeno\SmallTile.scale-100.png" />
+    <Content Include="Assets\Pequeno\SmallTile.scale-125.png" />
+    <Content Include="Assets\Pequeno\SmallTile.scale-150.png" />
+    <Content Include="Assets\Pequeno\SmallTile.scale-200.png" />
+    <Content Include="Assets\Pequeno\SmallTile.scale-400.png" />
+    <Content Include="Assets\Splash\SplashScreen.scale-100.png" />
+    <Content Include="Assets\Splash\SplashScreen.scale-125.png" />
+    <Content Include="Assets\Splash\SplashScreen.scale-150.png" />
+    <Content Include="Assets\Splash\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Splash\SplashScreen.scale-400.png" />
+    <Content Include="Assets\StoreLogo\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo\StoreLogo.scale-125.png" />
+    <Content Include="Assets\StoreLogo\StoreLogo.scale-150.png" />
+    <Content Include="Assets\StoreLogo\StoreLogo.scale-200.png" />
+    <Content Include="Assets\StoreLogo\StoreLogo.scale-400.png" />
     <Content Include="Fontes\Emoji\FontEmoji0A1.ttf" />
     <Content Include="Fontes\Icones\FontIcon0A1.ttf" />
     <Content Include="Fontes\Icones\FontIcon0A2.ttf" />
@@ -367,13 +418,27 @@
     <Content Include="Fontes\Letras\Font0F7.ttf" />
     <Content Include="Fontes\Letras\Font0F8.ttf" />
     <Content Include="Fontes\Letras\Font0F9.ttf" />
+    <Content Include="Fontes\Letras\Font0B45.ttf" />
+    <Content Include="Fontes\Letras\Font0B46.ttf" />
+    <Content Include="Fontes\Letras\Font0C45.ttf" />
+    <Content Include="Fontes\Letras\Font0C46.ttf" />
+    <Content Include="Fontes\Letras\Font0D45.ttf" />
+    <Content Include="Fontes\Letras\Font0D46.ttf" />
+    <Content Include="Fontes\Letras\Font0E45.ttf" />
+    <Content Include="Fontes\Letras\Font0E46.ttf" />
+    <Content Include="Fontes\Letras\Font0F45.ttf" />
+    <Content Include="Fontes\Letras\Font0F46.ttf" />
+    <Content Include="Fontes\Letras\Font0A45.ttf" />
+    <Content Include="Fontes\Letras\Font0A46.ttf" />
     <None Include="project.json" />
     <PRIResource Include="Strings\pt-BR\Resources.resw" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Converters.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -411,13 +476,6 @@
     <None Include="Fontes\Emoji\FontEmoji0E1.ttf" />
     <None Include="Fontes\Emoji\FontEmoji0F1.ttf" />
     <Content Include="Properties\Default.rd.xml" />
-    <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -454,7 +512,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\..\..\Videos\FlightingClientDll.dll" />
+    <Analyzer Include="..\..\..\..\Documents\2D4E0F88.CcCcBrowser_vq9yr24gkvnxa!App\Coding4Fun.Toolkit %28Windows Store%29\Coding4Fun.Toolkit.Audio.dll" />
+    <Analyzer Include="..\..\..\..\Documents\2D4E0F88.CcCcBrowser_vq9yr24gkvnxa!App\Coding4Fun.Toolkit %28Windows Store%29\Coding4Fun.Toolkit.Controls.dll" />
+    <Analyzer Include="..\..\..\..\Documents\2D4E0F88.CcCcBrowser_vq9yr24gkvnxa!App\Coding4Fun.Toolkit %28Windows Store%29\Coding4Fun.Toolkit.Net.dll" />
+    <Analyzer Include="..\..\..\..\Documents\2D4E0F88.CcCcBrowser_vq9yr24gkvnxa!App\Coding4Fun.Toolkit %28Windows Store%29\Coding4Fun.Toolkit.Storage.dll" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ndtklib">
@@ -466,13 +527,16 @@
     <Reference Include="OEMSharedFolderAccessLib">
       <HintPath>..\..\..\..\Documents\code source\WPTweaker-master\WPTweaker-master\WPTweaker\OEMSharedFolderAccessLib.winmd</HintPath>
     </Reference>
+    <Reference Include="Registry">
+      <HintPath>..\..\..\..\Documents\code source\WPTweaker-master\WPTweaker-master\WPTweaker\Registry.winmd</HintPath>
+    </Reference>
     <Reference Include="RPCComponent">
       <HintPath>..\..\..\..\Documents\code source\WPTweaker-master\WPTweaker-master\WPTweaker\RPCComponent.winmd</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
+      <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.10240.0%29</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

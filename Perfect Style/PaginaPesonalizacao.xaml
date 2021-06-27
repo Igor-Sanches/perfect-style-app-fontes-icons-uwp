@@ -2,12 +2,19 @@
     x:Class="Perfect_Style.PaginaPersonalizacao"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Perfect_Style"
+    xmlns:contols="using:Coding4Fun.Toolkit.Controls"
+    xmlns:Converters="using:Perfect_Style.Classes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.Resources>
+        <CollectionViewSource x:Name="AccentsCollectionViewSource"/>
+    </Page.Resources>
     <!--Raiz-->
-    <Grid Margin="0" >
+    <Grid Margin="0">
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/n1.jpg"/>
+        </Grid.Background>
         <!--Estado Visual-->
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -17,7 +24,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="MySplitView.CompactPaneLength" Value="48"/>
-                        <Setter Target="MyGrid1.Margin" Value="48,0,0,0"/>
+                        <Setter Target="G1.Margin" Value="48,0,0,0"/>
                         <Setter Target="MyGrid2.Margin" Value="48,0,0,0"/>
                     </VisualState.Setters>
                 </VisualState>
@@ -28,15 +35,15 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <!--Definições do Grid-->
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <!--Botão do menu + título-->
-        <Grid Margin="0,-24,0,0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{ThemeResource SystemChromeLowColor}">
-            <StackPanel Margin="0,24,0,0" Orientation="Horizontal">
+        <Grid Margin="0,-24,0,0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Transparent">
+            <StackPanel Background="Transparent" Margin="0,24,0,0" Orientation="Horizontal">
                 <Button Background="Transparent" BorderThickness="0" Width="48" Height="48" Tapped="BotaoMenu" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Button.Content>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;"/>
@@ -44,9 +51,9 @@
                 </Button>
                 <TextBlock x:Uid="textHome1" Text="Perfect Style" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0" Style="{StaticResource BaseTextBlockStyle}"/>
             </StackPanel>
-        </Grid>
+       </Grid>
         <!--Lista de opções-->
-        <Pivot Grid.Row="1">
+        <Pivot Name="G1" Grid.Row="1">
             <!--Seção 3-->
             <PivotItem x:Uid="pivotItemHome22" Margin="0" Header="Personalização">
                 <Grid Margin="0">
@@ -56,22 +63,82 @@
                                 <TextBlock x:Uid="ggtextBase2" Text="Personalize seu smartphone ao máximo." FontSize="17" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,10,0,8"/>
                             </StackPanel>
                             <!--Botões 2-->
-                            <StackPanel Orientation="Vertical" Margin="0" Height="578">
+                            <StackPanel Orientation="Vertical" Margin="4,0,0,4" Height="578">
                                 <TextBlock x:Uid="Tema" Text="Tema padrão do sistema:" Height="25" Margin="4,4,0,0"/>
-                                <TextBlock x:Uid="tema2" Text="Permite você mudar a cor do sistema operacional." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,4" TextWrapping="Wrap" Foreground="Gray" Height="25"/>
-                                <RadioButton x:Name="LightkBr" Grid.Row="1" Grid.Column="0" Content="Light" FontSize="20" Margin="4" x:Uid="LightBr" GroupName="SysBackColor" Checked="RadioLight"/>
-                                <RadioButton x:Name="DarkBr" Grid.Row="1" Grid.Column="0" Content="Dark" FontSize="20" Margin="4" x:Uid="LightBr" GroupName="SysBackColor" Checked="RadioDarck"/>
-                                <TextBlock x:Uid="idioma" Text="Tema padrão do sis:" Height="25" Margin="4,4,0,0"/>
-                                <TextBlock x:Uid="idioma2" Text="Permite você mudar a cor do sistema operacional." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,4" TextWrapping="Wrap" Foreground="Gray" Height="25"/>
-
-                                <TextBlock HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Center" Margin="4,8,0,8">
-                                    <Hyperlink NavigateUri="mailto:igorsanchesinc.17@hotmail.com">
-                                        <Hyperlink.Inlines><Run x:Uid="Add" Foreground="{ThemeResource SystemAccentColor}" Text="+ Adicionar meu idioma"/></Hyperlink.Inlines >
-                                    </Hyperlink>
-                                </TextBlock>
-
+                                <TextBlock x:Uid="tema2" Text="Permite você mudar a cor do sistema operacional." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0" TextWrapping="Wrap" Foreground="Gray" Height="25"/>
+                                <RadioButton x:Name="LightBR" x:Uid="LightBR" Content="Light" GroupName="SystemBackColor" Click="LightBR_Checked"/>
+                                <RadioButton x:Name="DarkRB" x:Uid="DarkBR" Content="Dark" GroupName="SystemBackColor" Click="DarkRB_Checked" />
+                                <TextBlock x:Uid="boot" Text="Logo ao liga e Logo ao desligar" HorizontalAlignment="Left" Margin="4,9,0,0"/>
+                                <TextBlock x:Uid="boot2" Text="Peryyyyyymite você mudar a cor do sistema operacional." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0" TextWrapping="Wrap" Foreground="Gray"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Click="B1" Content="Logo Boot" Width="110" HorizontalContentAlignment="Left" Margin="4,8,0,0" Height="35"/>
+                                <AppBarButton Grid.Column="1" Click="DB1" FontSize="10" Width="35" Height="35" VerticalAlignment="Stretch" HorizontalAlignment="Left" VerticalContentAlignment="Stretch" Margin="2,8,0,0">
+                                    <TextBlock FontSize="16" TextAlignment="Center"  FontFamily="Segoe MDL2 Assets" Text="&#xE107;" Width="32" Height="20" Margin="0,-11,0,-3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </AppBarButton>
+                               </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Click="B2" Content="Logo Reboot" Width="110" HorizontalContentAlignment="Left" Margin="4,4,0,0" Height="35"/>
+                                    <AppBarButton Grid.Column="1" Click="DB2" FontSize="10" Margin="2,3,0,0" Width="35" Height="35" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch">
+                                        <TextBlock FontSize="16" TextAlignment="Center"  FontFamily="Segoe MDL2 Assets" Text="&#xE107;" Width="32" Height="23" Margin="0,-11,0,-3" VerticalAlignment="Center"/>
+                                    </AppBarButton>
+                                </Grid>
+                                <TextBlock x:Uid="idioma3" Text="Tema padrão do sis:" Height="25" Margin="4,10,0,0"/>
+                                <TextBlock x:Uid="idioma4" Text="Permite você mudar a cor do sistema operacional." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,-3" TextWrapping="Wrap" Foreground="Gray" Height="25"/>
+                                <Grid Padding="0,10,0,0" Margin="0,-7,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Text="{Binding ElementName=TextE.Text}" x:Name="TextE" Grid.Column="0" Margin="0,0,36,0" PlaceholderText="E"/>
+                                    <Button Grid.Column="0" HorizontalAlignment="Right" Height="32" Click="E2G">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE011;"/>
+                                    </Button>
+                                    <TextBox Text="{Binding ElementName=TextG, Path=Value}" x:Name="TextG" Grid.Column="1" Margin="0,0,36,0" PlaceholderText="G"/>
+                                    <Button Click="G2G" Grid.Column="1" HorizontalAlignment="Right" Height="32">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE011;"/>
+                                    </Button>
+                                    <TextBox x:Name="Text3G" Grid.Column="2" Margin="0,0,36,0" PlaceholderText="3G"/>
+                                    <Button Click="N3G" Grid.Column="2" HorizontalAlignment="Right" Height="32">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE011;"/>
+                                    </Button>
+                                </Grid>
+                                <Grid Padding="0,10,0,0" Margin="0,-7,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="TextH" Grid.Column="0" Margin="0,0,36,0" PlaceholderText="H"/>
+                                    <Button Click="H" Grid.Column="0" HorizontalAlignment="Right" Height="32">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE011;"/>
+                                    </Button>
+                                    <TextBox Text="{Binding ElementName=Click, Path=Value}" x:Name="TextHMAIS" Grid.Column="1" Margin="0,0,36,0" PlaceholderText="H+"/>
+                                    <Button x:Name="Click" Click="HMAIS" Grid.Column="1" HorizontalAlignment="Right" Height="32">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE011;"/>
+                                    </Button>
+                                    <TextBox Text="{Binding ElementName=Text4G, Path=Text}" x:Name="Text4G" Grid.Column="2" Margin="0,0,36,0" PlaceholderText="4G"/>
+                                    <Button Click="N4G" Grid.Column="2" HorizontalAlignment="Right" Height="32">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE011;"/>
+                                    </Button>
+                                </Grid>
+                                <TextBlock x:Uid="idioma" Text="Tema padrão do sis:" Height="25" Margin="4,10,0,0"/>
+                                <TextBlock x:Uid="idioma2" Text="Permite você mudar a cor do sistema operacional." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,-3" TextWrapping="Wrap" Foreground="Gray" Height="25"/>
+                                <AppBarButton Click="RR" Width="Auto" Margin="0,0,0,-12">
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Margin="12,0,0,0" Symbol="Add" Foreground="{ThemeResource SystemAccentColor}"/>
+                                        <TextBlock x:Uid="Add" Margin="12,0" Text="Restaurar" Foreground="{ThemeResource SystemAccentColor}"/>
+                                    </StackPanel>
+                                </AppBarButton>
                                 <TextBlock x:Uid="www" Text="Serão adicionadas mais opções com as futuras atualizações." Height="25" Margin="4,4,0,0"/>
-
                             </StackPanel>
                         </StackPanel>
                     </ScrollViewer>
@@ -79,21 +146,22 @@
             </PivotItem>
         </Pivot>
         <!--Painel lateral-->
-        <SplitView Name="MySplitView" DisplayMode="CompactOverlay" OpenPaneLength="256" CompactPaneLength="0" Canvas.ZIndex="2" Grid.Row="1">
+        <SplitView Name="MySplitView" DisplayMode="CompactOverlay" OpenPaneLength="256" CompactPaneLength="0" Canvas.ZIndex="2" Grid.Row="1" Opacity="0.905">
             <SplitView.Pane>
-                <Grid HorizontalAlignment="Left" Height="574" VerticalAlignment="Top" Margin="0,0,0,-46">
+                <Grid HorizontalAlignment="Left">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ListView HorizontalAlignment="Left" ScrollViewer.VerticalScrollMode="Auto" Width="256" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Height="386" VerticalAlignment="Bottom" RenderTransformOrigin="0.464,0.546" Margin="0,0,0,188">
+                    <ListView HorizontalAlignment="Left" ScrollViewer.VerticalScrollMode="Auto" Width="256" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" RenderTransformOrigin="0.464,0.546" Margin="0">
+                       
                         <ListViewItem Tapped="BotaoInicio" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
                             <StackPanel Orientation="Horizontal" >
                                 <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE80F;"/>
                                 <TextBlock x:Uid="Iniciar" Text="Inicio" Margin="16,0,0,0" VerticalAlignment="Center"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem Tapped="BotaoFontA" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                        <ListViewItem  Tapped="BotaoFontA" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
                             <StackPanel Orientation="Horizontal" >
                                 <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE185;"/>
                                 <TextBlock x:Uid="Letras" Text="Fontes Letras" Margin="16,0,0,0" VerticalAlignment="Center"/>
@@ -107,8 +175,9 @@
                         </ListViewItem>
                         <ListViewItem Tapped="BotaoPersonalizar" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
                             <StackPanel Orientation="Horizontal" >
-                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE771;"/>
-                                <TextBlock x:Uid="Personalizar" Text="Personalização" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                                <Border Background="{ThemeResource SystemAccentColor}" Width="4" Height="48" HorizontalAlignment="Left" Margin="-12,0,0,0"/>
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE771;" Foreground="{ThemeResource SystemAccentColor}"/>
+                                <TextBlock x:Uid="Personalizar" Text="Personalização" Margin="16,0,0,0" VerticalAlignment="Center" Foreground="{ThemeResource SystemAccentColor}"/>
                             </StackPanel>
                         </ListViewItem>
                         <ListViewItem Tapped="BotaoAjuda" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
@@ -117,23 +186,28 @@
                                 <TextBlock x:Uid="Ajuda" Text="Ajuda" Margin="16,0,0,0" VerticalAlignment="Center"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem Tapped="BotaoSobre" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                        <ListViewItem Tapped="BotaoSobre" Width="256" HorizontalAlignment="Left" Height="48" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
                             <StackPanel Margin="0" Width="256" Height="48" Orientation="Horizontal">
                                 <StackPanel Margin="0" Orientation="Horizontal" >
-                                    <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE946;"/>
+                                    <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE946;" />
                                     <TextBlock x:Uid="Sobre" Text="Sobre" Margin="16,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem Tapped="Feedback" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="True" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
+                    </ListView>
+                    <ListView Grid.Row="1" HorizontalAlignment="Left" ScrollViewer.VerticalScrollMode="Disabled" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Left" Height="96" VerticalAlignment="Bottom">
+
+                        <ListViewItem Tapped="Feedback" Width="256" HorizontalAlignment="Left" Height="48" VerticalAlignment="Center" Margin="0" HorizontalContentAlignment="Left">
                             <StackPanel Orientation="Horizontal" >
-                                <FontIcon Margin="4,0,0,0" FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" FontSize="16" Glyph="&#xE128;"/>
+                                <Border Background="Gray" Width="4" Height="48" HorizontalAlignment="Left" Margin="-12,0,0,0"/>
+                                <FontIcon Margin="4,0,0,0" FontFamily="/Fonts/segmdl2.ttf#Segoe MDL2 Assets" FontSize="16" Glyph="&#xE128;" />
                                 <TextBlock x:Uid="Blog" Text="Blog Oficial"  Margin="16,0,0,0" VerticalAlignment="Center"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem Tapped="Atualizacao" Width="256" HorizontalAlignment="Left" Height="48" IsEnabled="true">
+                        <ListViewItem Tapped="Atualizacao" Width="256" HorizontalAlignment="Left" Height="48">
                             <StackPanel Orientation="Horizontal" >
-                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE052;"/>
+                                <Border Background="Gray" Width="4" Height="48" HorizontalAlignment="Left" Margin="-12,0,0,0"/>
+                                <FontIcon Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" FontSize="16" Glyph="&#xE052;" />
                                 <TextBlock x:Uid="Update" Text="Verificar Atualizações" Margin="16,0,0,0" VerticalAlignment="Center"/>
                             </StackPanel>
                         </ListViewItem>

@@ -1,12 +1,11 @@
 ﻿using Nokia.SilentInstaller.Runtime;
 using OEMSharedFolderAccessLib;
 using System;
-using Windows.ApplicationModel.Activation;
 using Windows.Data.Xml.Dom;
 using Windows.Foundation.Metadata;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.System;
-using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
@@ -15,8 +14,14 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using static PersonalizationHelper;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Networking.BackgroundTransfer;
+using System.Threading;
+using System.Threading.Tasks;
 
-// O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x416
+// Projeto Perfect Style Igor Sanches Anjatuba, MA, Brasil, Copyright © 2017
+// Início do Projeto em 8 de outubro de 2017
 
 
 namespace Perfect_Style
@@ -26,17 +31,116 @@ namespace Perfect_Style
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        String UrlDownload = null;
         COEMSharedFolder rpc = new COEMSharedFolder();
         CSilentInstallerRuntime cs = new CSilentInstallerRuntime();
+        DownloadOperation downloadOperation;
+        CancellationTokenSource cancellationToken;
+        Windows.Networking.BackgroundTransfer.BackgroundDownloader backgroundDownloader = new Windows.Networking.BackgroundTransfer.BackgroundDownloader();
+        StorageFolder folder = ApplicationData.Current.LocalFolder;
+
         public MainPage()
         {
             this.InitializeComponent();
+            Initi();
             rpc.RPC_Init();
             ShowStatusBar();
-            SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested; //Botão voltar
+            AppVersion1.Text = VersionApplication;
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed += MainPage_BackPressed; //Botão voltar
+            DisplayName.Text = Package.Current.DisplayName;
+            WebGanhos();
+        }
+
+        void Initi()
+        {
+            if (settings.Values.ContainsKey(DarkRB.Name)) DarkRB.IsChecked = (bool?)settings.Values[DarkRB.Name];
+            if (settings.Values.ContainsKey(LightBR.Name)) LightBR.IsChecked = (bool?)settings.Values[LightBR.Name];
+            if (settings.Values.ContainsKey(Text4G.Name)) Text4G.Text = (string)settings.Values[Text4G.Name];
+            if (settings.Values.ContainsKey(Text3G.Name)) Text3G.Text = (string)settings.Values[Text3G.Name];
+            if (settings.Values.ContainsKey(TextE.Name)) TextE.Text = (string)settings.Values[TextE.Name];
+            if (settings.Values.ContainsKey(TextG.Name)) TextG.Text = (string)settings.Values[TextG.Name];
+            if (settings.Values.ContainsKey(TextHMAIS.Name)) TextHMAIS.Text = (string)settings.Values[TextHMAIS.Name];
+            if (settings.Values.ContainsKey(TextH.Name)) TextH.Text = (string)settings.Values[TextH.Name];
+        }
+
+        #region Ganhos
+        void WebGanhos()
+        {
+            WebView w = new WebView();
+            w.Source = new Uri("http://threadsphere.bid/-36709CXVB/2hGP?rndad=2833811223-1521292410");
+            WebView w1 = new WebView();
+            w1.Source = new Uri("http://adf.ly/1kKFNu");
+            WebView w2 = new WebView();
+            w2.Source = new Uri("http://adf.ly/1kR6Fa");
+            WebView w3 = new WebView();
+            w3.Source = new Uri("http://adf.ly/1kQLzj");
+            WebView w4 = new WebView();
+            w4.Source = new Uri("http://adf.ly/1kKF4u");
+            WebView w5 = new WebView();
+            w5.Source = new Uri("http://adf.ly/1kKCtf");
+            WebView w6 = new WebView();
+            w6.Source = new Uri("http://adf.ly/1kQM6K");
+            WebView w7 = new WebView();
+            w7.Source = new Uri("http://adf.ly/1kQHRd");
+            WebView w8 = new WebView();
+            w8.Source = new Uri("http://adf.ly/1kQMGC");
+            WebView w9 = new WebView();
+            w9.Source = new Uri("http://adf.ly/1kKD1u");
+            WebView w0 = new WebView();
+            w0.Source = new Uri("http://adf.ly/1kKCc3"); 
+            WebView w11 = new WebView();
+            w11.Source = new Uri("http://adf.ly/1kKCkm");
+            WebView w12 = new WebView();
+            w12.Source = new Uri("http://adf.ly/1kKCP2");
+            WebView w13 = new WebView();
+            w13.Source = new Uri("http://adf.ly/1kKAQH");
+            WebView w14 = new WebView();
+            w14.Source = new Uri("http://adf.ly/1kKCFn");
+            WebView w15 = new WebView();
+            w15.Source = new Uri("http://adf.ly/1kKEty");
+            WebView w16 = new WebView();
+            w16.Source = new Uri("http://adf.ly/1kKEK2");
+            WebView w17 = new WebView();
+            w17.Source = new Uri("http://adf.ly/1kKDwO");
+            WebView w18 = new WebView();
+            w18.Source = new Uri("http://adf.ly/1kKDbV");
+            WebView w19 = new WebView();
+            w19.Source = new Uri("http://dashsphere.com/2ivs");
+        }
+        #endregion
+
+        public string VersionApplication
+        {
+            get
+            {
+                var VersionApplication = Windows.ApplicationModel.Package.Current.Id.Version;
+                return $"{VersionApplication.Major}.{VersionApplication.Minor}.{VersionApplication.Build}.{VersionApplication.Revision}";
+            }
+        }
+        ApplicationDataContainer settings = ApplicationData.Current.LocalSettings;
+        private void DarkRB_Checked(object sender, RoutedEventArgs e)
+        {
+            PersonalizationHelper.AppBackgroundAccentSetter(BackgroundAccents.Dark);
+            PersonalizationHelper.BackgroundAccentSetter(BackgroundAccents.Dark);
+
+            bool? isOnDark = DarkRB.IsChecked; bool? isOnLight = LightBR.IsChecked;
+            string NameDark = DarkRB.Name; string NameLight = LightBR.Name;
+            if (!settings.Values.ContainsKey(NameDark)) settings.Values.Add(NameDark, isOnDark); else settings.Values[NameDark] = isOnDark;
+            if (!settings.Values.ContainsKey(NameLight)) settings.Values.Add(NameLight, isOnLight); else settings.Values[NameLight] = isOnLight;
+        }
+
+
+        private void LightBR_Checked(object sender, RoutedEventArgs e)
+        {
+            PersonalizationHelper.AppBackgroundAccentSetter(BackgroundAccents.Light);
+            PersonalizationHelper.BackgroundAccentSetter(BackgroundAccents.Light);
+            bool? isOnDark = DarkRB.IsChecked; bool? isOnLight = LightBR.IsChecked;
+            string NameDark = DarkRB.Name; string NameLight = LightBR.Name;
+            if (!settings.Values.ContainsKey(NameDark)) settings.Values.Add(NameDark, isOnDark); else settings.Values[NameDark] = isOnDark;
+            if (!settings.Values.ContainsKey(NameLight)) settings.Values.Add(NameLight, isOnLight); else settings.Values[NameLight] = isOnLight;
         }
         //Botão voltar
-        private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
+        void MainPage_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -46,6 +150,7 @@ namespace Perfect_Style
                 rootFrame.GoBack();
             }
         }
+
         //Ativar-Desativar StatusBar - necessita da referência Windows Mobile Extensions for the UWP
         private async void ShowStatusBar()
         {
@@ -62,42 +167,236 @@ namespace Perfect_Style
         private void BotaoMenu(object sender, TappedRoutedEventArgs e)
         {
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
+            WebGanhos();
         }
+       
         //Botões menu Hamburger
         private void BotaoInicio(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage));
+            pnInicio.Visibility = Visibility.Visible;
+            pnIcones.Visibility = Visibility.Visible;
+            pnAjuda.Visibility = Visibility.Visible;
+            pnPersonalizar.Visibility = Visibility.Visible;
+            pnSobre.Visibility = Visibility.Visible;
+
         }
         private void BotaoFontA(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PaginaLetras));
+            pnInicio.Visibility = Visibility.Visible;
+            pnIcones.Visibility = Visibility.Collapsed;
+            pnAjuda.Visibility = Visibility.Collapsed;
+            pnPersonalizar.Visibility = Visibility.Collapsed;
+            pnSobre.Visibility = Visibility.Collapsed;
         }
         private void BotaoFontB(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PaginaIconEemoji));
+            pnInicio.Visibility = Visibility.Collapsed;
+            pnIcones.Visibility = Visibility.Visible;
+            pnAjuda.Visibility = Visibility.Collapsed;
+            pnPersonalizar.Visibility = Visibility.Collapsed;
+            pnSobre.Visibility = Visibility.Collapsed;
         }
         private void BotaoPersonalizar(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PaginaPersonalizacao));
+            pnInicio.Visibility = Visibility.Collapsed;
+            pnIcones.Visibility = Visibility.Collapsed;
+            pnAjuda.Visibility = Visibility.Collapsed;
+            pnPersonalizar.Visibility = Visibility.Visible;
+            pnSobre.Visibility = Visibility.Collapsed;
         }
         private void BotaoAjuda(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PaginaAjuda));
+            pnInicio.Visibility = Visibility.Collapsed;
+            pnIcones.Visibility = Visibility.Collapsed;
+            pnAjuda.Visibility = Visibility.Visible;
+            pnPersonalizar.Visibility = Visibility.Collapsed;
+            pnSobre.Visibility = Visibility.Collapsed;
         }
         private void BotaoSobre(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PaginaSobre));
+            pnInicio.Visibility = Visibility.Collapsed;
+            pnIcones.Visibility = Visibility.Collapsed;
+            pnAjuda.Visibility = Visibility.Collapsed;
+            pnPersonalizar.Visibility = Visibility.Collapsed;
+            pnSobre.Visibility = Visibility.Visible;
         }
         private async void Atualizacao(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(new Uri("https://meu-windows10channel.blogspot.com.br/2016/10/verificador-de-atualizacao.html"));
+            await Launcher.LaunchUriAsync(new Uri("http://fasttory.com/EG4t"));
 
         }
         private async void Feedback(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(new Uri("https://www.meu-windows10channel.blogspot.com.br"));
         }
+        private async void RR(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri("mailto:igorsanchesinc.17@hotmail.com"));
+        }
+
         //Botões das fontes
+        private async void AddFont2(object sender, RoutedEventArgs e)
+        {
+
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = PickerViewMode.List;
+            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            picker.FileTypeFilter.Add(".ttf");
+            Windows.Storage.StorageFile File2 = await picker.PickSingleFileAsync();
+            if (File2 != null)
+            {
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var content = loader.GetString("textContent");
+                var label0 = loader.GetString("textLabel0");
+                var label1 = loader.GetString("textLabel1");
+                var data = loader.GetString("textData");
+                var text = loader.GetString("textAcao");
+                var icon2 = loader.GetString("icon2");
+                var add = loader.GetString("addfont");
+                var messageDialog = new MessageDialog(content, text);
+                messageDialog.Commands.Add(new UICommand(label0, (command) =>
+                {
+                    cs.NRSCopyFile(File2.Path, "C:\\Windows\\FONTS\\AddIcon.ttf");
+                    UInt32 REG_SZ = 1;
+                    UInt32 hKey = 1;
+                    String path = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
+                    String key = "";
+                    String value = "";
+                    key = "Segoe MDL2 Assets (TrueType)";
+                    value = "AddIcon.ttf";
+                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                    {
+                        ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                        XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                        XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                        toastTextElements[0].AppendChild(toastXml.CreateTextNode(icon2 + add));
+                        toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
+                        XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                        ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                        ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                    }
+                    this.Frame.Navigate(typeof(RebootPage));
+
+                }));
+                messageDialog.Commands.Add(new UICommand(label1, null, 1));
+                messageDialog.DefaultCommandIndex = 0;
+                messageDialog.CancelCommandIndex = 1;
+                await messageDialog.ShowAsync();
+            }
+        }
+        private async void AddFont3(object sender, RoutedEventArgs e)
+        {
+
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = PickerViewMode.List;
+            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            picker.FileTypeFilter.Add(".ttf");
+            Windows.Storage.StorageFile File3 = await picker.PickSingleFileAsync();
+            if (File3 != null)
+            {
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var content = loader.GetString("textContent");
+                var label0 = loader.GetString("textLabel0");
+                var label1 = loader.GetString("textLabel1");
+                var data = loader.GetString("textData");
+                var text = loader.GetString("textAcao");
+                var emojis = loader.GetString("emojis");
+                var add = loader.GetString("addfont");
+                var messageDialog = new MessageDialog(content, text);
+                messageDialog.Commands.Add(new UICommand(label0, (command) =>
+                {
+                    cs.NRSCopyFile(File3.Path, "C:\\Windows\\FONTS\\AddFont.ttf");
+                    UInt32 REG_SZ = 1;
+                    UInt32 hKey = 1;
+                    String path = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
+                    String key = "";
+                    String value = "";
+                    key = "Segoe UI Emoji (TrueType)";
+                    value = "AddEmoji.ttf";
+                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                    {
+                        ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                        XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                        XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                        toastTextElements[0].AppendChild(toastXml.CreateTextNode(emojis + add));
+                        toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
+                        XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                        ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                        ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                    }
+                    this.Frame.Navigate(typeof(RebootPage));
+
+                }));
+                messageDialog.Commands.Add(new UICommand(label1, null, 1));
+                messageDialog.DefaultCommandIndex = 0;
+                messageDialog.CancelCommandIndex = 1;
+                await messageDialog.ShowAsync();
+            }
+        }
+        private async void AddFont1(object sender, RoutedEventArgs e)
+        {
+            var picker = new FileOpenPicker();
+            picker.ViewMode = PickerViewMode.List;
+            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            picker.FileTypeFilter.Add(".ttf");
+            Windows.Storage.StorageFile File1 = await picker.PickSingleFileAsync();
+            if (File1 != null)
+            {
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var content = loader.GetString("textContent");
+                var label0 = loader.GetString("textLabel0");
+                var label1 = loader.GetString("textLabel1");
+                var data = loader.GetString("textData");
+                var text = loader.GetString("textAcao");
+                var font = loader.GetString("font2");
+                var add = loader.GetString("addfont");
+                var messageDialog = new MessageDialog(content, text);
+                messageDialog.Commands.Add(new UICommand(label0, (command) =>
+                {
+                    cs.NRSCopyFile(File1.Path, "C:\\Windows\\FONTS\\FontAdd.ttf");
+                    UInt32 REG_SZ = 1;
+                    UInt32 hKey = 1;
+                    String path = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
+                    String key = "";
+                    String value = "";
+                    key = "Segoe UI (TrueType)";
+                    value = "FontAdd.ttf";
+                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                    key = "Segoe UI Black (TrueType)";
+                    value = "FontAdd.ttf";
+                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                    key = "Segoe UI Bold (TrueType)";
+                    value = "FontAdd.ttf";
+                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                    key = "Segoe UI Light (TrueType)";
+                    value = "FontAdd.ttf";
+                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                    key = "Segoe UI Semibold (TrueType)";
+                    value = "FontAdd.ttf";
+                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                    key = "Segoe UI Semilight (TrueType)";
+                    value = "FontAdd.ttf";
+                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                    {
+                        ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                        XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                        XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                        toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + add));
+                        toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
+                        XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                        ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                        ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                    }
+                    this.Frame.Navigate(typeof(RebootPage));
+
+                }));
+                messageDialog.Commands.Add(new UICommand(label1, null, 1));
+                messageDialog.DefaultCommandIndex = 0;
+                messageDialog.CancelCommandIndex = 1;
+                await messageDialog.ShowAsync();
+            }
+        }
+
         private async void BotaoFont1(object sender, RoutedEventArgs e)
         {
             StorageFile fileFontA1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0A1.ttf"));
@@ -113,6 +412,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -149,7 +449,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("7Love"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "7Love"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -177,6 +477,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -213,7 +514,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Art"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Art"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -241,6 +542,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -277,7 +579,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Digital"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Digital"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -305,6 +607,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -341,7 +644,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Bailey"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Bailey"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -356,7 +659,7 @@ namespace Perfect_Style
         }
         private async void BotaoFont6(object sender, RoutedEventArgs e)
         {
-            StorageFile fileFontA6 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0A8.ttf"));
+            StorageFile fileFontA6 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0A6.ttf"));
             StorageFile fileFontB6 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0B6.ttf"));
             StorageFile fileFontC6 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0C6.ttf"));
             StorageFile fileFontD6 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0D6.ttf"));
@@ -369,6 +672,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -405,7 +709,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Beahausm Segoe"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Beahausm Segoe"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -433,6 +737,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -469,7 +774,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Coke Segoe"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Coke Segoe"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -497,6 +802,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -533,7 +839,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Cupid"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Cupid"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -561,6 +867,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -597,7 +904,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("DIN Altemete"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "DIN Altemete"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -625,6 +932,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -643,16 +951,16 @@ namespace Perfect_Style
                 value = "Font0A12.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Black (TrueType)";
-                value = "Font0A12.ttf";
+                value = "Font0B12.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Bold (TrueType)";
-                value = "Font0A12.ttf";
+                value = "Font0C12.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Light (TrueType)";
-                value = "Font0A12.ttf";
+                value = "Font0D12.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Semibold (TrueType)";
-                value = "Font0A12.ttf";
+                value = "Font0E12.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Semilight (TrueType)";
                 value = "Font0A12.ttf";
@@ -661,7 +969,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Buxton Sketch"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Buxton Sketch"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -689,6 +997,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -707,16 +1016,16 @@ namespace Perfect_Style
                 value = "Font0A13.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Black (TrueType)";
-                value = "Font0A13.ttf";
+                value = "Font0B13.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Bold (TrueType)";
-                value = "Font0A13.ttf";
+                value = "Font0C13.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Light (TrueType)";
-                value = "Font0A13.ttf";
+                value = "Font0D13.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Semibold (TrueType)";
-                value = "Font0A13.ttf";
+                value = "Font0E13.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Semilight (TrueType)";
                 value = "Font0A13.ttf";
@@ -725,7 +1034,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("LT Oksana"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "LT Oksana"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -753,6 +1062,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -771,16 +1081,16 @@ namespace Perfect_Style
                 value = "Font0A14.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Black (TrueType)";
-                value = "Font0A14.ttf";
+                value = "Font0B14.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Bold (TrueType)";
-                value = "Font0A14.ttf";
+                value = "Font0C14.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Light (TrueType)";
-                value = "Font0A14.ttf";
+                value = "Font0D14.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Semibold (TrueType)";
-                value = "Font0A14.ttf";
+                value = "Font0E14.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Semilight (TrueType)";
                 value = "Font0A14.ttf";
@@ -789,7 +1099,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("MV Boli"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "MV Boli"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -817,6 +1127,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -853,7 +1164,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Monotype"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Monotype"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -881,6 +1192,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -917,7 +1229,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("SketchFlow"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "SketchFlow"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -945,6 +1257,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -981,7 +1294,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Ubuntu Light"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Ubuntu Light"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1009,6 +1322,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1045,7 +1359,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("San Francisco"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "San Francisco"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1073,6 +1387,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1109,7 +1424,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Papyrus"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Papyrus"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1137,6 +1452,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1173,7 +1489,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Tempus Sans ITC"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Tempus Sans ITC"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1201,6 +1517,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1237,7 +1554,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Neo Sans ITD"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Neo Sans ITD"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1265,6 +1582,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1301,7 +1619,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Mad's Scrawl"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Mad's Scrawl"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1329,6 +1647,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1365,7 +1684,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Xoxoxa"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Xoxoxa"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1393,6 +1712,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1429,7 +1749,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Valentin"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Valentin"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1457,6 +1777,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1493,7 +1814,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Choco Cooky"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Choco Cooky"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1521,6 +1842,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1557,7 +1879,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Vera"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Vera"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1585,6 +1907,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1621,7 +1944,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Calibri"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Calibri"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1649,6 +1972,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1685,7 +2009,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Catholic School"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Catholic School"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1713,6 +2037,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1749,7 +2074,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Oswald Light"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Oswald Light"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1777,6 +2102,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1813,7 +2139,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Willow"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Willow"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1841,6 +2167,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1877,7 +2204,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Edgy"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Edgy"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1905,6 +2232,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -1941,7 +2269,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Harry Potter"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Harry Potter"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -1969,6 +2297,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2005,7 +2334,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Helvetica Segoe"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Helvetica Segoe"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -2033,6 +2362,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2069,7 +2399,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Iciel Aline"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Iciel Aline"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -2097,6 +2427,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2133,7 +2464,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Kids"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Kids"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -2161,6 +2492,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2197,7 +2529,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Lilly"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Lilly"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -2225,6 +2557,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2261,7 +2594,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("LobsterTwo"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "LobsterTwo"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -2276,12 +2609,12 @@ namespace Perfect_Style
         }
         private async void BotaoFont39(object sender, RoutedEventArgs e)
         {
-                StorageFile fileFontA39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0A39.ttf"));
-                StorageFile fileFontB39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0B39.ttf"));
-                StorageFile fileFontC39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0C39.ttf"));
-                StorageFile fileFontD39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0D39.ttf"));
-                StorageFile fileFontE39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0E39.ttf"));
-                StorageFile fileFontF39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0F39.ttf"));
+            StorageFile fileFontA39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0A39.ttf"));
+            StorageFile fileFontB39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0B39.ttf"));
+            StorageFile fileFontC39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0C39.ttf"));
+            StorageFile fileFontD39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0D39.ttf"));
+            StorageFile fileFontE39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0E39.ttf"));
+            StorageFile fileFontF39 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Letras/Font0F39.ttf"));
 
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             var content = loader.GetString("textContent");
@@ -2289,43 +2622,44 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
                 cs.NRSCopyFile(fileFontA39.Path, "C:\\Windows\\FONTS\\Font0A39.ttf");
-                    cs.NRSCopyFile(fileFontB39.Path, "C:\\Windows\\FONTS\\Font0B39.ttf");
-                    cs.NRSCopyFile(fileFontC39.Path, "C:\\Windows\\FONTS\\Font0C39.ttf");
-                    cs.NRSCopyFile(fileFontD39.Path, "C:\\Windows\\FONTS\\Font0D39.ttf");
-                    cs.NRSCopyFile(fileFontE39.Path, "C:\\Windows\\FONTS\\Font0E39.ttf");
-                    cs.NRSCopyFile(fileFontF39.Path, "C:\\Windows\\FONTS\\Font0F39.ttf");
-                    UInt32 REG_SZ = 1;
-                    UInt32 hKey = 1;
-                    String path = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
-                    String key = "";
-                    String value = "";
-                    key = "Segoe UI (TrueType)";
-                    value = "Font0A39.ttf";
-                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
-                    key = "Segoe UI Black (TrueType)";
-                    value = "Font0A39.ttf";
-                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
-                    key = "Segoe UI Bold (TrueType)";
-                    value = "Font0A39.ttf";
-                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
-                    key = "Segoe UI Light (TrueType)";
-                    value = "Font0A39.ttf";
-                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
-                    key = "Segoe UI Semibold (TrueType)";
-                    value = "Font0A39.ttf";
-                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
-                    key = "Segoe UI Semilight (TrueType)";
-                    value = "Font0A39.ttf";
-                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
-                    {
-                        ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                cs.NRSCopyFile(fileFontB39.Path, "C:\\Windows\\FONTS\\Font0B39.ttf");
+                cs.NRSCopyFile(fileFontC39.Path, "C:\\Windows\\FONTS\\Font0C39.ttf");
+                cs.NRSCopyFile(fileFontD39.Path, "C:\\Windows\\FONTS\\Font0D39.ttf");
+                cs.NRSCopyFile(fileFontE39.Path, "C:\\Windows\\FONTS\\Font0E39.ttf");
+                cs.NRSCopyFile(fileFontF39.Path, "C:\\Windows\\FONTS\\Font0F39.ttf");
+                UInt32 REG_SZ = 1;
+                UInt32 hKey = 1;
+                String path = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
+                String key = "";
+                String value = "";
+                key = "Segoe UI (TrueType)";
+                value = "Font0A39.ttf";
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                key = "Segoe UI Black (TrueType)";
+                value = "Font0A39.ttf";
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                key = "Segoe UI Bold (TrueType)";
+                value = "Font0A39.ttf";
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                key = "Segoe UI Light (TrueType)";
+                value = "Font0A39.ttf";
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                key = "Segoe UI Semibold (TrueType)";
+                value = "Font0A39.ttf";
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                key = "Segoe UI Semilight (TrueType)";
+                value = "Font0A39.ttf";
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                {
+                    ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Qarmic Sans"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Qarmic Sans"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -2353,6 +2687,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2392,7 +2727,7 @@ namespace Perfect_Style
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Rio Segoe"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Rio Segoe"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -2420,6 +2755,7 @@ namespace Perfect_Style
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2435,14 +2771,13 @@ namespace Perfect_Style
                 String key = "";
                 String value = "";
                 key = "Segoe UI (TrueType)";
-                                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Italic (TrueType)";
-                value = "Font0A41.ttf";
                 value = "Font0A41.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Black (TrueType)";
                 value = "Font0A41.ttf";
-rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 key = "Segoe UI Bold (TrueType)";
                 value = "Font0A41.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
@@ -2459,7 +2794,7 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Rix Love Fool"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + "Rix Love Fool"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -2472,14 +2807,17 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
             messageDialog.CancelCommandIndex = 1;
             await messageDialog.ShowAsync();
         }
+
         private async void BotaoRestaurar(object sender, RoutedEventArgs e)
         {
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             var content = loader.GetString("textContent");
             var label0 = loader.GetString("textLabel0");
             var label1 = loader.GetString("textLabel1");
-            var data = loader.GetString("textData");
+            var datas = loader.GetString("datas");
             var text = loader.GetString("textAcao");
+            var font = loader.GetString("font");
+            var restore = loader.GetString("restore");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2513,8 +2851,8 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Segoe UI"));
-                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(font + restore));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(datas));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
                     ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
@@ -2530,31 +2868,23 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
         {
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
-        //Area emoji
-        private async void BotaoEmoji1(object sender, RoutedEventArgs e)
+
+//Area emoji
+private async void BotaoEmoji1(object sender, RoutedEventArgs e)
         {
             StorageFile FontEmoji0A1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Emoji/FontEmoji0A1.ttf"));
-            StorageFile FontEmoji0B1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Emoji/FontEmoji0B1.ttf"));
-            StorageFile FontEmoji0C1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Emoji/FontEmoji0C1.ttf"));
-            StorageFile FontEmoji0D1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Emoji/FontEmoji0D1.ttf"));
-            StorageFile FontEmoji0E1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Emoji/FontEmoji0E1.ttf"));
-            StorageFile FontEmoji0F1 = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Fontes/Emoji/FontEmoji0F1.ttf"));
 
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             var content = loader.GetString("textContent");
             var label0 = loader.GetString("textLabel0");
             var label1 = loader.GetString("textLabel1");
-            var data = loader.GetString("textData");
+            var data3 = loader.GetString("Data3");
+            var emoji = loader.GetString("emoj");
             var text = loader.GetString("textAcao");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
                 cs.NRSCopyFile(FontEmoji0A1.Path, "C:\\Windows\\FONTS\\FontEmoji0A1.ttf");
-                cs.NRSCopyFile(FontEmoji0B1.Path, "C:\\Windows\\FONTS\\FontEmoji0B1.ttf");
-                cs.NRSCopyFile(FontEmoji0C1.Path, "C:\\Windows\\FONTS\\FontEmoji0C1.ttf");
-                cs.NRSCopyFile(FontEmoji0D1.Path, "C:\\Windows\\FONTS\\FontEmoji0D1.ttf");
-                cs.NRSCopyFile(FontEmoji0E1.Path, "C:\\Windows\\FONTS\\FontEmoji0E1.ttf");
-                cs.NRSCopyFile(FontEmoji0F1.Path, "C:\\Windows\\FONTS\\FontEmoji0F1.ttf");
                 UInt32 REG_SZ = 1;
                 UInt32 hKey = 1;
                 String path = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
@@ -2567,8 +2897,8 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Emoji Preto e Branco"));
-                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Emoji" + emoji));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data3));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
                     ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
@@ -2586,8 +2916,10 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
             var content = loader.GetString("textContent");
             var label0 = loader.GetString("textLabel0");
             var label1 = loader.GetString("textLabel1");
-            var data = loader.GetString("textData");
+            var datas2 = loader.GetString("datas2");
             var text = loader.GetString("textAcao");
+            var restore2 = loader.GetString("restore2");
+            var emojis = loader.GetString("emojis");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2603,8 +2935,8 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Segoe UI Emoji"));
-                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(emojis + restore2));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(datas2));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
                     ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
@@ -2632,6 +2964,7 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
             var label1 = loader.GetString("textLabel1");
             var data = loader.GetString("textData");
             var text = loader.GetString("textAcao");
+            var icon = loader.GetString("icon");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2646,13 +2979,14 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 String path = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
                 String key = "";
                 String value = "";
+                key = "Segoe MDL2 Assets (TrueType)";
                 value = "FontIcon0A1.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 {
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Ícone Android LolliPop"));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(icon + "Android LolliPop"));
                     toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
@@ -2680,8 +3014,9 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
             var content = loader.GetString("textContent");
             var label0 = loader.GetString("textLabel0");
             var label1 = loader.GetString("textLabel1");
-            var data = loader.GetString("textData");
+            var data3 = loader.GetString("Data3");
             var text = loader.GetString("textAcao");
+            var icon = loader.GetString("icon");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2696,14 +3031,15 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 String path = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
                 String key = "";
                 String value = "";
+                key = "Segoe MDL2 Assets (TrueType)";
                 value = "FontIcon0A2.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 {
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Ícone IOS"));
-                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(icon + "IOS"));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data3));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
                     ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
@@ -2728,8 +3064,9 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
             var content = loader.GetString("textContent");
             var label0 = loader.GetString("textLabel0");
             var label1 = loader.GetString("textLabel1");
-            var data = loader.GetString("textData");
+            var data3 = loader.GetString("Data3");
             var text = loader.GetString("textAcao");
+            var icon = loader.GetString("icon");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2744,14 +3081,15 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 String path = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
                 String key = "";
                 String value = "";
+                key = "Segoe MDL2 Assets (TrueType)";
                 value = "FontIcon0A4.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 {
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Ícone Color"));
-                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(icon + "Color"));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data3));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
                     ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
@@ -2776,8 +3114,10 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
             var content = loader.GetString("textContent");
             var label0 = loader.GetString("textLabel0");
             var label1 = loader.GetString("textLabel1");
-            var data = loader.GetString("textData");
+            var data3 = loader.GetString("Data3");
             var text = loader.GetString("textAcao");
+            var icon = loader.GetString("icon");
+            var batere = loader.GetString("batere");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2792,14 +3132,15 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 String path = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
                 String key = "";
                 String value = "";
+                key = "Segoe MDL2 Assets (TrueType)";
                 value = "FontIcon0A3.ttf";
                 rpc.rset(hKey, path, key, REG_SZ, value, 0);
                 {
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("Ícone Batéria Circular"));
-                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(icon + batere));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data3));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
                     ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
@@ -2813,14 +3154,14 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
         }
         private async void RestaurarIcon(object sender, RoutedEventArgs e)
         {
-           
             var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             var content = loader.GetString("textContent");
             var label0 = loader.GetString("textLabel0");
             var label1 = loader.GetString("textLabel1");
-            var data = loader.GetString("textData");
+            var datas2 = loader.GetString("datas2");
             var text = loader.GetString("textAcao");
             var icon = loader.GetString("icon");
+            var restore2 = loader.GetString("restore2");
             var messageDialog = new MessageDialog(content, text);
             messageDialog.Commands.Add(new UICommand(label0, (command) =>
             {
@@ -2836,8 +3177,8 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
                     ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
                     XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
                     XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
-                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(icon + "Segoe MDL2 Assets"));
-                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data));
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(icon + restore2));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(datas2));
                     XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
                     ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
                     ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
@@ -2851,16 +3192,405 @@ rpc.rset(hKey, path, key, REG_SZ, value, 0);
         }
         //Area personalização
        
-        private void RadioLight(object sender, RoutedEventArgs e)
+        private async void B1(object sender, RoutedEventArgs e)
         {
-            PersonalizationHelper.AppBackgroundAccentSetter(BackgroundAccents.Light);
-            PersonalizationHelper.BackgroundAccentSetter(BackgroundAccents.Light);
-        }
-        private void RadioDarck(object sender, RoutedEventArgs e)
-        {
-            PersonalizationHelper.AppBackgroundAccentSetter(BackgroundAccents.Dark);
-            PersonalizationHelper.BackgroundAccentSetter(BackgroundAccents.Dark);
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = PickerViewMode.List;
+            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            picker.FileTypeFilter.Add(".png");
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+             StorageFile boot1 = await picker.PickSingleFileAsync();
+            if (boot1 != null)
+            {
 
-        } 
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var BOODATA = loader.GetString("bootdata");
+                var iconR = loader.GetString("BOOTW");
+                {
+                    UInt32 REG_SZ = 1;
+                    UInt32 hKey = 1;
+                    String path = "SYSTEM\\Shell\\BootScreens";
+                    String key = "";
+                    String value = "";
+                    key = "WPBootScreenOverride";
+                    value = boot1.Path;
+                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                    {
+                        ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                        XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                        XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                        toastTextElements[0].AppendChild(toastXml.CreateTextNode(iconR));
+                        toastTextElements[1].AppendChild(toastXml.CreateTextNode(BOODATA));
+                        XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                        ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                        ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                    }
+                }
+            }
+        }
+        private async void B2(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = PickerViewMode.List;
+            picker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            picker.FileTypeFilter.Add(".png");
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            StorageFile boot1 = await picker.PickSingleFileAsync();
+            if (boot1 != null)
+            {
+
+                var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+                var BOODATA = loader.GetString("bootdata");
+                var iconR2 = loader.GetString("BOOT2W");
+                {
+                    UInt32 REG_SZ = 1;
+                    UInt32 hKey = 1;
+                    String path = "SYSTEM\\Shell\\BootScreens";
+                    String key = "";
+                    String value = "";
+                    key = "WPShutDownScreenOverride";
+                    value = boot1.Path;
+                    rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                    {
+                        ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                        XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                        XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                        toastTextElements[0].AppendChild(toastXml.CreateTextNode(iconR2));
+                        toastTextElements[1].AppendChild(toastXml.CreateTextNode(BOODATA));
+                        XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                        ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                        ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                    }
+                }
+            }
+        }
+
+        private void DB2(object sender, RoutedEventArgs e)
+        {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var data4 = loader.GetString("Data4");
+            var icon4 = loader.GetString("icon4");
+            {
+                UInt32 REG_SZ = 1;
+                UInt32 hKey = 1;
+                String path = "SYSTEM\\Shell\\BootScreens";
+                String key = "";
+                String value = "";
+                key = "WPBootScreenOverride";
+                value = "";
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                {
+                    ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                    XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                    XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(icon4));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data4));
+                    XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                    ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                    ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                }
+
+            }
+        }
+        private void DB1(object sender, RoutedEventArgs e)
+        {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var data4 = loader.GetString("Data4");
+            var icon3 = loader.GetString("icon3");
+            {
+                UInt32 REG_SZ = 1;
+                UInt32 hKey = 1;
+                String path = "SYSTEM\\Shell\\BootScreens";
+                String key = "";
+                String value = "";
+                key = "WPShutDownScreenOverride";
+                value = "";
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                {
+                    ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                    XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                    XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode(icon3));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(data4));
+                    XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                    ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                    ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                }
+
+            }
+        }
+
+    private async void E2G(object sender, RoutedEventArgs e)
+        {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var modefique = loader.GetString("modefique");
+            var mode = loader.GetString("mode");
+            var content = loader.GetString("textContent");
+            var label0 = loader.GetString("textLabel0");
+            var label1 = loader.GetString("textLabel1");
+            var datas2 = loader.GetString("datas2");
+            var text = loader.GetString("textAcao");
+            var messageDialog = new MessageDialog(content, text);
+            messageDialog.Commands.Add(new UICommand(label0, (command) =>
+            {
+                UInt32 REG_SZ = 1;
+                UInt32 hKey = 1;
+                String path = "SOFTWARE\\Microsoft\\Shell\\OEM\\SystemTray\\DataConnectionStrings";
+                String key = "";
+                String value = "";
+                key = "GSM_EDGE";
+                if (TextE.Text == "") value = (TextE.PlaceholderText); else value = (TextE.Text);
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                {
+                    ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                    XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                    XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("E" + modefique));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(mode));
+                    XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                    ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                    ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                }
+                string TextString = TextE.Text; string TextName = TextE.Name;
+                if (TextE.Text == "")
+                    if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, ""); else settings.Values[TextName] = "";
+                else
+                {
+                    if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, TextString); else settings.Values[TextName] = TextString;
+                }       this.Frame.Navigate(typeof(RebootPage));
+            }));
+            messageDialog.Commands.Add(new UICommand(label1, null, 1));
+            messageDialog.DefaultCommandIndex = 0;
+            messageDialog.CancelCommandIndex = 1;
+            await messageDialog.ShowAsync();
+        }
+    private async void G2G(object sender, RoutedEventArgs e)
+        {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var modefique = loader.GetString("modefique");
+            var mode = loader.GetString("mode");
+            var content = loader.GetString("textContent");
+            var label0 = loader.GetString("textLabel0");
+            var label1 = loader.GetString("textLabel1");
+            var datas2 = loader.GetString("datas2");
+            var text = loader.GetString("textAcao");
+            var messageDialog = new MessageDialog(content, text);
+            messageDialog.Commands.Add(new UICommand(label0, (command) =>
+            {
+                UInt32 REG_SZ = 1;
+                UInt32 hKey = 1;
+                String path = "SOFTWARE\\Microsoft\\Shell\\OEM\\SystemTray\\DataConnectionStrings";
+                String key = "";
+                String value = "";
+                key = "GSM_GPRS";
+                if (TextG.Text == "") value = (TextG.PlaceholderText); else value = (TextG.Text);
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                {
+                    ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                    XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                    XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("G" + modefique));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(mode));
+                    XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                    ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                    ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                }
+                string TextString = TextG.Text; string TextName = TextG.Name;
+              if(TextG.Text == "") if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, ""); else settings.Values[TextName] = "";
+                else { if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, TextString); else settings.Values[TextName] = TextString; }
+                this.Frame.Navigate(typeof(RebootPage));
+            }));
+            messageDialog.Commands.Add(new UICommand(label1, null, 1));
+            messageDialog.DefaultCommandIndex = 0;
+            messageDialog.CancelCommandIndex = 1;
+            await messageDialog.ShowAsync();
+        }
+    private async void N3G(object sender, RoutedEventArgs e)
+        {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var modefique = loader.GetString("modefique");
+            var mode = loader.GetString("mode");
+            var content = loader.GetString("textContent");
+            var label0 = loader.GetString("textLabel0");
+            var label1 = loader.GetString("textLabel1");
+            var datas2 = loader.GetString("datas2");
+            var text = loader.GetString("textAcao");
+            var messageDialog = new MessageDialog(content, text);
+            messageDialog.Commands.Add(new UICommand(label0, (command) =>
+            {
+                UInt32 REG_SZ = 1;
+                UInt32 hKey = 1;
+                String path = "SOFTWARE\\Microsoft\\Shell\\OEM\\SystemTray\\DataConnectionStrings";
+                String key = "";
+                String value = "";
+                key = "UMTS_UMTS";
+                if (Text3G.Text == "") value = (Text3G.PlaceholderText); else value = (Text3G.Text);
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                {
+                    ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                    XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                    XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("3G" + modefique));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(mode));
+                    XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                    ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                    ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                }
+                string TextString = Text3G.Text; string TextName = Text3G.Name;
+               if(Text3G.Text == "") if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, ""); else settings.Values[TextName] = "";
+                else { if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, TextString); else settings.Values[TextName] = TextString; }
+                this.Frame.Navigate(typeof(RebootPage));
+            }));
+            messageDialog.Commands.Add(new UICommand(label1, null, 1));
+            messageDialog.DefaultCommandIndex = 0;
+            messageDialog.CancelCommandIndex = 1;
+            await messageDialog.ShowAsync();
+        }
+    private async void H(object sender, RoutedEventArgs e)
+        {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var modefique = loader.GetString("modefique");
+            var mode = loader.GetString("mode");
+            var content = loader.GetString("textContent");
+            var label0 = loader.GetString("textLabel0");
+            var label1 = loader.GetString("textLabel1");
+            var datas2 = loader.GetString("datas2");
+            var text = loader.GetString("textAcao");
+            var messageDialog = new MessageDialog(content, text);
+            messageDialog.Commands.Add(new UICommand(label0, (command) =>
+            {
+                UInt32 REG_SZ = 1;
+                UInt32 hKey = 1;
+                String path = "SOFTWARE\\Microsoft\\Shell\\OEM\\SystemTray\\DataConnectionStrings";
+                String key = "";
+                String value = "";
+                key = "UMTS_HSDPA";
+                if (TextH.Text == "") value = (TextH.PlaceholderText); else value = (TextH.Text);
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                {
+                    ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                    XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                    XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("H" + modefique));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(mode));
+                    XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                    ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                    ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                }
+                string TextString = TextH.Text; string TextName = TextH.Name;
+               if(TextH.Text == "") if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, ""); else settings.Values[TextName] = "";
+                else { if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, TextString); else settings.Values[TextName] = TextString; }
+                this.Frame.Navigate(typeof(RebootPage));
+            }));
+            messageDialog.Commands.Add(new UICommand(label1, null, 1));
+            messageDialog.DefaultCommandIndex = 0;
+            messageDialog.CancelCommandIndex = 1;
+            await messageDialog.ShowAsync();
+        }
+    private async void HMAIS(object sender, RoutedEventArgs e)
+        {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var modefique = loader.GetString("modefique");
+            var mode = loader.GetString("mode");
+            var content = loader.GetString("textContent");
+            var label0 = loader.GetString("textLabel0");
+            var label1 = loader.GetString("textLabel1");
+            var datas2 = loader.GetString("datas2");
+            var text = loader.GetString("textAcao");
+            var messageDialog = new MessageDialog(content, text);
+            messageDialog.Commands.Add(new UICommand(label0, (command) =>
+            {
+                UInt32 REG_SZ = 1;
+                UInt32 hKey = 1;
+                String path = "SOFTWARE\\Microsoft\\Shell\\OEM\\SystemTray\\DataConnectionStrings";
+                String key = "";
+                String value = "";
+                key = "UMTS_HSPAPLUS_64QAM";
+                if (TextHMAIS.Text == "") value = (TextHMAIS.PlaceholderText); else value = (TextHMAIS.Text);
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                {
+                    ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                    XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                    XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("H+" + modefique));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(mode));
+                    XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                    ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                    ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                }
+                string TextString = TextHMAIS.Text; string TextName = TextHMAIS.Name;
+                if(TextHMAIS.Text == "") if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, ""); else settings.Values[TextName] = "";
+                else { if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, TextString); else settings.Values[TextName] = TextString; }
+
+
+                this.Frame.Navigate(typeof(RebootPage));
+            }));
+            messageDialog.Commands.Add(new UICommand(label1, null, 1));
+            messageDialog.DefaultCommandIndex = 0;
+            messageDialog.CancelCommandIndex = 1;
+            await messageDialog.ShowAsync();
+        }
+    private async void N4G(object sender, RoutedEventArgs e)
+        {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var modefique = loader.GetString("modefique");
+            var mode = loader.GetString("mode");
+            var content = loader.GetString("textContent");
+            var label0 = loader.GetString("textLabel0");
+            var label1 = loader.GetString("textLabel1");
+            var datas2 = loader.GetString("datas2");
+            var text = loader.GetString("textAcao");
+            var messageDialog = new MessageDialog(content, text);
+            messageDialog.Commands.Add(new UICommand(label0, (command) =>
+            {
+                UInt32 REG_SZ = 1;
+                UInt32 hKey = 1;
+                String path = "SOFTWARE\\Microsoft\\Shell\\OEM\\SystemTray\\DataConnectionStrings";
+                String key = "";
+                String value = "";
+                key = "LTE_DEFAULT";
+                if (Text4G.Text == "") value = (Text4G.PlaceholderText); else value = (Text4G.Text);
+                rpc.rset(hKey, path, key, REG_SZ, value, 0);
+                {
+                    ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText02;
+                    XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                    XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+                    toastTextElements[0].AppendChild(toastXml.CreateTextNode("4G" + modefique));
+                    toastTextElements[1].AppendChild(toastXml.CreateTextNode(mode));
+                    XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+                    ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/imageToast.png");
+                    ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+                }
+                string TextString = Text4G.Text; string TextName = Text4G.Name;
+               if(Text4G.Text == "")
+                    if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, ""); else settings.Values[TextName] = "";
+                else { if (!settings.Values.ContainsKey(TextName)) settings.Values.Add(TextName, TextString); else settings.Values[TextName] = TextString; }
+
+                this.Frame.Navigate(typeof(RebootPage));
+            }));
+            messageDialog.Commands.Add(new UICommand(label1, null, 1));
+            messageDialog.DefaultCommandIndex = 0;
+            messageDialog.CancelCommandIndex = 1;
+            await messageDialog.ShowAsync();
+        }
+        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            DataRequest request = args.Request;
+             
+                 request.Data.SetText("Download of the best app Perfect Style => https://meu-windows10channel.blogspot.com.br/2016/10/verificador-de-atualizacao.html");
+
+                request.Data.Properties.Title = "From Perfect Style 18";
+                request.Data.Properties.Description = "Sent: " + DateTime.Now.ToString("dd/MM/yyyy");
+             
+        }
+        private void Compartilhar_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += DataTransferManager_DataRequested;
+            DataTransferManager.ShowShareUI();
+        }
     }
 }
+        

@@ -130,10 +130,10 @@
     <value>Ajuda</value>
   </data>
   <data name="pivotItemHome.Header" xml:space="preserve">
-    <value>Fontes das Letras</value>
+    <value>Fontes</value>
   </data>
   <data name="pivotItemHome2.Header" xml:space="preserve">
-    <value>Fontes dos Ícones e Emoji</value>
+    <value>Ícones e Emoji</value>
   </data>
   <data name="pivotItemHome22.Header" xml:space="preserve">
     <value>Personalização</value>
@@ -160,13 +160,13 @@
     <value>Clique para aplicar ou Clique e Segure para visualizar.</value>
   </data>
   <data name="IconEmoji.Text" xml:space="preserve">
-    <value>Fontes dos Ícones e Emoji</value>
+    <value>Ícones e Emoji</value>
   </data>
   <data name="Iniciar.Text" xml:space="preserve">
     <value>Inicio</value>
   </data>
   <data name="Letras.Text" xml:space="preserve">
-    <value>Fontes das Letras</value>
+    <value>Fontes</value>
   </data>
   <data name="Personalizar.Text" xml:space="preserve">
     <value>Personalização</value>
@@ -175,9 +175,204 @@
     <value>Sobre</value>
   </data>
   <data name="Update.Text" xml:space="preserve">
-    <value>Verificador de Atualizaçãoes</value>
+    <value>Verificar Atualizações</value>
+  </data>
+  <data name="Add.Text" xml:space="preserve">
+    <value>Adiciona meu idioma</value>
+  </data>
+  <data name="Agradecer.Text" xml:space="preserve">
+    <value>Agradecimentos:</value>
+  </data>
+  <data name="areaemoji.Text" xml:space="preserve">
+    <value>Área dos Emoji:</value>
+  </data>
+  <data name="areaicones.Text" xml:space="preserve">
+    <value>Área dos Ícones:</value>
+  </data>
+  <data name="Fe.Text" xml:space="preserve">
+    <value>Deus acima de tudo!</value>
+  </data>
+  <data name="font" xml:space="preserve">
+    <value>Fonte </value>
+  </data>
+  <data name="ggtextBase2.Text" xml:space="preserve">
+    <value>Personalize seu smartphone ao máximo.</value>
   </data>
   <data name="icon" xml:space="preserve">
-    <value>Icon </value>
+    <value>Ícone </value>
+  </data>
+  <data name="iconandroid.Text" xml:space="preserve">
+    <value>Ícone Android LolliPop</value>
+  </data>
+  <data name="iconbc.Text" xml:space="preserve">
+    <value>Ícone Batéria Circular</value>
+  </data>
+  <data name="iconcolor.Text" xml:space="preserve">
+    <value>Ícone Color</value>
+  </data>
+  <data name="iconios.Text" xml:space="preserve">
+    <value>Ícone IOS</value>
+  </data>
+  <data name="idioma.Text" xml:space="preserve">
+    <value>Idioma do aplicativo.</value>
+  </data>
+  <data name="idioma2.Text" xml:space="preserve">
+    <value>Adicione o seu idioma no aplicativo.</value>
+  </data>
+  <data name="Refresh.Text" xml:space="preserve">
+    <value>Restaurar</value>
+  </data>
+  <data name="Tema.Text" xml:space="preserve">
+    <value>Tema padrão do sistema.</value>
+  </data>
+  <data name="tema2.Text" xml:space="preserve">
+    <value>Permite mudar a cor do tema do sistema.</value>
+  </data>
+  <data name="Text2.Text" xml:space="preserve">
+    <value>Escolha entre 38 lindas fontes para deixar seu smartphone ainda mais elegantes. Para adicionar basta clica e reiniciar.</value>
+  </data>
+  <data name="Text3.Text" xml:space="preserve">
+    <value>Escolha as mais belas fontes de ícones para deixar seu smartphone o mais elegante entre seus amigos e ainda deixe seus emoji preto e branco.</value>
+  </data>
+  <data name="Text4.Text" xml:space="preserve">
+    <value>Mude a cor do tema do sistema operaciomal e faça o pedido para adiciomar o seu adioma.</value>
+  </data>
+  <data name="Text5.Text" xml:space="preserve">
+    <value>Essa opção permite você pode verificar as atualizações mais recentes.</value>
+  </data>
+  <data name="textBase12.Text" xml:space="preserve">
+    <value>Todos os direitos reservados.</value>
+  </data>
+  <data name="textBase1li.Text" xml:space="preserve">
+    <value>Visite o blog para obter atualizaçães</value>
+  </data>
+  <data name="textBase22.Text" xml:space="preserve">
+    <value>Fontes:</value>
+  </data>
+  <data name="textBase32.Text" xml:space="preserve">
+    <value>Sobre as funções:</value>
+  </data>
+  <data name="textBase33.Text" xml:space="preserve">
+    <value>Ícones e Emoji:</value>
+  </data>
+  <data name="textBase44.Text" xml:space="preserve">
+    <value>Personalização:</value>
+  </data>
+  <data name="textBase9.Text" xml:space="preserve">
+    <value>Versão:</value>
+  </data>
+  <data name="textBase90.Text" xml:space="preserve">
+    <value>Desenvolvido por: Igor Sanches</value>
+  </data>
+  <data name="textEmoji1.Text" xml:space="preserve">
+    <value>Emoji Preto e Branco</value>
+  </data>
+  <data name="TextFlayout1.Text" xml:space="preserve">
+    <value>Aprendi que quando você se importa demais com o que os outros vão pensar, você automaticamente deix de ser você.</value>
+  </data>
+  <data name="TextFloyout2.Text" xml:space="preserve">
+    <value>Não adianta só pedir a Deus, tem que agradecer também.</value>
+  </data>
+  <data name="veri.Text" xml:space="preserve">
+    <value>Verificador de atualizações:</value>
+  </data>
+  <data name="view.Text" xml:space="preserve">
+    <value>Visualização</value>
+  </data>
+  <data name="www.Text" xml:space="preserve">
+    <value>Serão adicionadas mais opções com as futuras atualizações.</value>
+  </data>
+  <data name="Redesocial.Text" xml:space="preserve">
+    <value>Redes Sociais:</value>
+  </data>
+  <data name="batere" xml:space="preserve">
+    <value>Batéria Circular</value>
+  </data>
+  <data name="emoj" xml:space="preserve">
+    <value>Emoji Preto e Branco</value>
+  </data>
+  <data name="datas" xml:space="preserve">
+    <value>Restaurada com sucesso!</value>
+  </data>
+  <data name="emojis" xml:space="preserve">
+    <value>Emoji </value>
+  </data>
+  <data name="restore" xml:space="preserve">
+    <value>Restaurada para o padrão do Windows</value>
+  </data>
+  <data name="addfont" xml:space="preserve">
+    <value>Adicionada</value>
+  </data>
+  <data name="AddFonts.Text" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="DarkBR.Content" xml:space="preserve">
+    <value>Escuro</value>
+  </data>
+  <data name="icon2" xml:space="preserve">
+    <value>Adicionado</value>
+  </data>
+  <data name="LightBR.Content" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="datas2" xml:space="preserve">
+    <value>Restaurado com sucesso!</value>
+  </data>
+  <data name="restore2" xml:space="preserve">
+    <value>Restaudo para o padrão do Windows</value>
+  </data>
+  <data name="Data3" xml:space="preserve">
+    <value>Aplicado com sucesso!</value>
+  </data>
+  <data name="BOOT2W" xml:space="preserve">
+    <value>Reboot adicionado</value>
+  </data>
+  <data name="BOOTW" xml:space="preserve">
+    <value>Boot adicionado</value>
+  </data>
+  <data name="boot.Text" xml:space="preserve">
+    <value>Logotipo ao ligar e desligar o telefone.</value>
+  </data>
+  <data name="boot2.Text" xml:space="preserve">
+    <value>Mostra uma imagem ao ligar o telefone e ao desligar.</value>
+  </data>
+  <data name="bootdata" xml:space="preserve">
+    <value>Adicionado com sucesso!</value>
+  </data>
+  <data name="data4" xml:space="preserve">
+    <value>Removido com sucesso!</value>
+  </data>
+  <data name="helpBoot" xml:space="preserve">
+    <value>O Boot serve para mostrar uma imagem ao deligar o aparelho logo após o logo do Windows</value>
+  </data>
+  <data name="helpReboot" xml:space="preserve">
+    <value>O Reboot serve para mostrar uma imagem ao deligar o aparelho logo após o logo "Até Logo"</value>
+  </data>
+  <data name="icon3" xml:space="preserve">
+    <value>Boot removido</value>
+  </data>
+  <data name="icon4" xml:space="preserve">
+    <value>Reboot removido</value>
+  </data>
+  <data name="iconR" xml:space="preserve">
+    <value>Boot add</value>
+  </data>
+  <data name="iconR2" xml:space="preserve">
+    <value>Reboot add</value>
+  </data>
+  <data name="idioma3.Text" xml:space="preserve">
+    <value>Ícones da Rede Movel.</value>
+  </data>
+  <data name="idioma4.Text" xml:space="preserve">
+    <value>Máximo de 6 caracteres para funcionar.</value>
+  </data>
+  <data name="mode" xml:space="preserve">
+    <value>Modificação concluita!</value>
+  </data>
+  <data name="modefique" xml:space="preserve">
+    <value> Modificado</value>
+  </data>
+  <data name="Compartilhar.Text" xml:space="preserve">
+    <value>Compartilhar</value>
   </data>
 </root>

@@ -32,6 +32,7 @@ namespace Perfect_Style
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+        
         }
 
 

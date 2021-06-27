@@ -69,6 +69,11 @@ class PersonalizationHelper
         }
     }
 
+    internal static BackgroundAccents GetBackgroundAccent()
+    {
+        throw new NotImplementedException();
+    }
+
     public static string GetRegistryValue(RegistryHives Hive, string Path, string Key, RegistryType Type)
     {
         try

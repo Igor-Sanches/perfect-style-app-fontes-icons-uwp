@@ -6,8 +6,10 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.ApplicationModel;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+// Projeto Perfect Style Igor Sanches Anjatuba, MA, Brasil, Copyright © 2017
+// Início do Projeto em 8 de outubro de 2017
 
 namespace Perfect_Style
 {
@@ -20,9 +22,21 @@ namespace Perfect_Style
         {
             this.InitializeComponent();
             ShowStatusBar();
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed += PaginaSobre_BackPressed; //Botão voltar
+             DisplayName.Text = Package.Current.DisplayName;
+        }
+
+
+        public string VersionApplication
+        {
+            get
+            {
+                var VersionApplication = Windows.ApplicationModel.Package.Current.Id.Version;
+                return $"{VersionApplication.Major}.{VersionApplication.Minor}.{VersionApplication.Build}.{VersionApplication.Revision}";
+            }
         }
         //Botão voltar
-        private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
+        void PaginaSobre_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -32,6 +46,7 @@ namespace Perfect_Style
                 rootFrame.GoBack();
             }
         }
+
         //Ativar-Desativar StatusBar - necessita da referência Windows Mobile Extensions for the UWP
         private async void ShowStatusBar()
         {
@@ -44,20 +59,7 @@ namespace Perfect_Style
                 statusbar.ForegroundColor = Windows.UI.Colors.WhiteSmoke;
             }
         }
-        public Uri Logo => Windows.ApplicationModel.Package.Current.Logo;
-
-        public string DisplayName => Windows.ApplicationModel.Package.Current.DisplayName;
-
-        public string Publisher => Windows.ApplicationModel.Package.Current.PublisherDisplayName;
-
-        public string Version
-        {
-            get
-            {
-                var v = Windows.ApplicationModel.Package.Current.Id.Version;
-                return $"{v.Major}.{v.Minor}.{v.Build}.{v.Revision}";
-            }
-        }
+     
         // Menu Hamburger
         private void BotaoMenu(object sender, TappedRoutedEventArgs e)
         {
@@ -86,7 +88,15 @@ namespace Perfect_Style
         }
         private void BotaoSobre(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(PaginaSobre));
+            if (MySplitView.IsPaneOpen == false)
+            {
+
+            }
+
+            else if (MySplitView.IsPaneOpen == true)
+            {
+                MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
+            }
         }
         private async void Atualizacao(object sender, RoutedEventArgs e)
         {
@@ -97,5 +107,7 @@ namespace Perfect_Style
         {
             await Launcher.LaunchUriAsync(new Uri("https://www.meu-windows10channel.blogspot.com.br"));
         }
+
+    
     }
 }

@@ -7,15 +7,13 @@ namespace Perfect_Style
 {
     public sealed partial class RebootPage : Page
     {
-            public RebootPage()
-            {
-                this.InitializeComponent();
+        public RebootPage()
+        {
+            this.InitializeComponent();
             ndtklib.NRPC rpc = new ndtklib.NRPC();
             rpc.Initialize();
             rpc.SystemReboot();
         }
-         }
-
-
+    }
 }
 
